@@ -28,6 +28,8 @@ import ViewApplicants from './components/HomeClientDashboard/ViewApplicants';
 import CDefaultDash from './components/ContractorDashboard/CDefaultDash';
 import CSettings from './components/ContractorDashboard/CSettings';
 
+import UniversalLanding from './components/LandingPage/UniversalLanding';
+
 /* {condition ? <div>True</div> : <div>False</div>} */
 
 function App() {
@@ -61,7 +63,7 @@ function App() {
     <CDefaultDash /> {}
     <CSettings /> {}
 
-
+    <UniversalLanding /> {}
 
 
     </>
