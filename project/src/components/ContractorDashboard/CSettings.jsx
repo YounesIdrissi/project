@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 
+
 /* service type selection */
 
-function CSettings() {
+export default function CSettings() {
     return (
     <div className="w-[1280px] h-[832px] relative bg-white overflow-hidden">
     <img className="w-14 h-14 left-[64px] top-[28px] absolute" src="https://placehold.co/55x57" />
@@ -30,5 +31,3 @@ function CSettings() {
 </div>
     )
 }
-
-export default CSettings

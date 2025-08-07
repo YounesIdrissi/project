@@ -1,147 +1,255 @@
 import { useState, useEffect } from 'react'
+import { Star, Leaf, Zap, PipetteIcon as Pipe, Hammer, Paintbrush, Brush, Settings, DollarSign, Users, Clock, ChevronDown, ChevronUp } from 'lucide-react'
 
-/* service type selection */
+/* Landing page for first time visitors */
 
-function UniversalLanding() {
+export default function UniversalLanding() {
+    const [openFaq, setOpenFaq] = useState(null);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: "How does Job Berry verify contractors?",
+      answer: "Job Berry verifies contractors through a rigorous process including background checks, license verification, and reviewing their past project portfolios and customer reviews to ensure quality and reliability."
+    },
+    {
+      question: "Do homeowners have to pay to use the platform?",
+      answer: "No, homeowners do not have to pay to use the platform. Posting a job and receiving bids from contractors is completely free for homeowners."
+    },
+    {
+      question: "What if I'm not happy with the lead/job?",
+      answer: "If you're not satisfied, Job Berry's support team is available to mediate and help resolve any issues. Our platform is designed to protect both homeowners and contractors."
+    },
+    {
+      question: "How can I look at contracting reviews?",
+      answer: "Contractor reviews and ratings are publicly available on their profiles. You can browse through them before making a hiring decision."
+    },
+    {
+      question: "What types of jobs do contractors offer?",
+      answer: "Contractors offer a wide range of services, with jobs spanning from skilled trades like plumbing and electrical work to professional services like project management and design. They can be found in various industries, including construction, IT, and healthcare, often hired for specific projects or tasks. (according to Google)"
+    },
+  ];
     return (
-    <div className="w-[1280px] h-[4553px] relative bg-white overflow-hidden">
-    <div className="w-[1286px] h-32 left-[-6px] top-[4419px] absolute bg-sky-600 rounded-2xl overflow-hidden">
-        <div className="left-[1159px] top-[107px] absolute justify-start text-white text-xs font-normal font-['Inter']">© Team Jey 2025</div>
-    </div>
-    <div className="w-[1280px] h-[724px] left-[-6px] top-[3712px] absolute overflow-hidden">
-        <div className="w-[1280px] h-44 left-0 top-[423px] absolute outline outline-1 outline-offset-[-1px] outline-black overflow-hidden">
-            <div className="left-[1234px] top-[17px] absolute justify-start text-black text-3xl font-normal font-['Inter']">^</div>
-            <div className="left-[71px] top-0 absolute justify-start text-black text-3xl font-normal font-['Inter'] leading-[60px]">What types of jobs do contractors offer</div>
-        </div>
-        <div className="w-[1146px] left-[70px] top-[494px] absolute justify-start text-black text-lg font-normal font-['Inter'] leading-loose">Contractors offer a wide range of services, with jobs spanning from skilled trades like plumbing and electrical work to professional services like project management and design. They can be found in various industries, including construction, IT, and healthcare, often hired for specific projects or tasks. (according to Google)</div>
-        <div className="w-[1280px] h-16 left-0 top-[360px] absolute outline outline-1 outline-offset-[-1px] outline-black overflow-hidden">
-            <div className="left-[1249px] top-[44px] absolute origin-top-left -rotate-180 justify-start text-black text-3xl font-normal font-['Inter']">^</div>
-        </div>
-        <div className="w-[1280px] h-16 left-0 top-[298px] absolute outline outline-1 outline-offset-[-1px] outline-neutral-900 overflow-hidden">
-            <div className="left-[1249px] top-[41px] absolute origin-top-left -rotate-180 justify-start text-black text-3xl font-normal font-['Inter']">^</div>
-        </div>
-        <div className="w-[1280px] h-14 left-0 top-[241px] absolute outline outline-1 outline-offset-[-1px] outline-black overflow-hidden">
-            <div className="left-[1249px] top-[41px] absolute origin-top-left -rotate-180 justify-start text-black text-3xl font-normal font-['Inter']">^</div>
-            <div className="left-[70px] top-[-63px] absolute justify-start text-black text-3xl font-normal font-['Inter'] leading-[60px]"><br/>Do homeowners have to pay to use the platform?</div>
-        </div>
-        <div className="w-[1280px] h-14 left-0 top-[183px] absolute outline outline-1 outline-offset-[-1px] outline-black overflow-hidden">
-            <div className="left-[1249px] top-[41px] absolute origin-top-left -rotate-180 justify-start text-black text-3xl font-normal font-['Inter']">^</div>
-            <div className="w-[743px] h-16 left-[70px] top-0 absolute justify-start text-black text-3xl font-normal font-['Inter'] leading-[60px]">How does Job Berry verify contractors?</div>
-        </div>
-        <div className="left-[70px] top-[59px] absolute justify-start text-black text-6xl font-normal font-['Inter']">FAQ (Frequently Asked Questions) </div>
-    </div>
-    <div className="w-[1280px] h-[686px] left-[-4px] top-[2969px] absolute overflow-hidden">
-        <div className="w-80 h-44 left-[92px] top-[319px] absolute overflow-hidden">
-            <div className="left-[28px] top-[17px] absolute justify-start text-black text-4xl font-normal font-['Inter']">For Contractors</div>
-            <div className="w-72 left-[28px] top-[83px] absolute justify-start text-black text-xl font-normal font-['Inter']">Join a network trusted by real clients and stop paying for empty leads</div>
-        </div>
-        <div className="w-96 h-36 left-[797px] top-[325px] absolute overflow-hidden">
-            <div className="left-[29px] top-[6px] absolute justify-start text-black text-4xl font-normal font-['Inter']">For Homeowners</div>
-            <div className="w-80 left-[29px] top-[73px] absolute justify-start text-black text-xl font-normal font-['Inter']">Find a verified contractor you can trust in minutes with full transparency.</div>
-        </div>
-        <div className="left-[264px] top-[172px] absolute justify-start text-black text-6xl font-normal font-['Inter']">Let’s Get You Connected.</div>
-        <img className="w-80 h-40 left-[468.73px] top-[338.57px] absolute origin-top-left rotate-[-13.78deg] opacity-10" src="https://placehold.co/315x161" />
-        <div className="w-36 h-11 left-[535px] top-[469px] absolute bg-sky-600 rounded-2xl outline outline-1 outline-offset-[-1px] outline-white overflow-hidden">
-            <div className="left-[31px] top-[8px] absolute justify-start text-white text-2xl font-normal font-['Inter']">Sign Up</div>
-        </div>
-    </div>
-    <div className="w-[1280px] h-[521px] left-[-4px] top-[2451px] absolute bg-white overflow-hidden">
-        <img className="w-[1284px] h-[521px] left-0 top-0 absolute" src="https://placehold.co/1284x521" />
-        <div className="w-96 left-[85px] top-[124px] absolute justify-start text-white text-3xl font-normal font-['Inter']">Job Berry is the only contractor platform that guarantees leads, protects payments, and helps both contractors and homeowners build trust. </div>
-        <div className="w-[471px] left-[730px] top-[124px] absolute text-right justify-start text-white text-3xl font-normal font-['Inter']">No hidden fees, wasted time, or marketing gimmicks. </div>
-    </div>
-    <div className="w-[1280px] h-[635px] left-[-4px] top-[1823px] absolute overflow-hidden">
-        <div className="w-96 left-[798px] top-[66px] absolute text-right justify-start text-black text-3xl font-normal font-['Inter']">“I used to spend $300 a month on bad leads. Now I only pay when someone actually books me.”<br/>— Sean R., Carpenter, NY</div>
-        <div className="w-96 left-[69px] top-[273px] absolute justify-start text-black text-3xl font-normal font-['Inter']">“I was nervous to hire someone online. Job Berry showed me reviews, photos, and gave me peace of mind.”     — Lisa T., Homeowner, NJ</div>
-        <img className="w-80 h-96 left-[120px] top-[191px] absolute opacity-10" src="https://placehold.co/345x359" />
-        <img className="w-80 h-96 left-[820px] top-[-16px] absolute opacity-10" src="https://placehold.co/345x359" />
-    </div>
-    <div className="w-[1280px] h-[582px] left-[-4px] top-[1237px] absolute overflow-hidden">
-        <div className="left-[70px] top-[77px] absolute justify-start text-black text-6xl font-normal font-['Inter']">Why Job Berry Works Better for Everyone</div>
-        <div className="w-96 h-80 left-[28px] top-[190px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-[168px] top-[29px] absolute overflow-hidden">
-                <img className="w-24 h-24 left-0 top-0 absolute" src="https://placehold.co/96x96" />
+    <div className="min-h-screen bg-white text-black">
+      {/* Hero Section */}
+      <section className="relative bg-white pb-16 md:pb-24 overflow-hidden">
+        <div className="container mx-auto px-6 pt-8 md:pt-12 flex flex-col md:flex-row items-center justify-between">
+          {/* Logo and Login Button */}
+          <div className="absolute top-6 left-6 md:static flex items-center gap-2 mb-8 md:mb-0">
+            <div className="relative w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              <Star className="w-6 h-6 text-white fill-current" />
+              <Leaf className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 text-green-500 rotate-45" />
+              <Leaf className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 text-green-500 -rotate-45" />
             </div>
-            <div className="left-[47px] top-[174px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Only pay for real leads</div>
-            <div className="w-80 left-[47px] top-[230px] absolute justify-start text-black text-xl font-normal font-['Inter']">Homeowners only pay for verified<br/>contractors, no wasted fees</div>
+            <span className="text-2xl font-bold text-blue-600">JOB BERRY</span>
+          </div>
+          <div className="absolute top-6 right-6 md:static">
+            <button className="px-6 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors">
+              Log In
+            </button>
+          </div>
         </div>
-        <div className="w-96 h-80 left-[887px] top-[197px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-[131px] top-[23px] absolute overflow-hidden">
-                <div className="w-24 h-24 left-0 top-0 absolute" />
-                <div className="w-20 h-20 left-[8px] top-[8px] absolute bg-lime-600" />
-                <div className="w-6 h-9 left-[44px] top-[28px] absolute bg-lime-600" />
+
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between mt-12 md:mt-0">
+          {/* Left Content */}
+          <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+              We provide home service jobs to those who want to do the job
+            </h1>
+            <button className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium transition-colors shadow-lg">
+              Sign Up
+            </button>
+          </div>
+          {/* Right Image */}
+          <div className="md:w-1/2 flex justify-center md:justify-end">
+            <img
+              src="/placeholder.svg?height=400&width=600"
+              alt="House under construction"
+              className="w-full max-w-xl rounded-lg shadow-xl"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Our Services Section */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto px-6 max-w-5xl text-center">
+          <h2 className="text-4xl font-bold mb-12">Our Services</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Zap className="w-10 h-10 text-black" />
+              </div>
+              <span className="text-lg font-medium">Electrical</span>
             </div>
-            <div className="w-80 left-[20px] top-[223px] absolute justify-start text-black text-xl font-normal font-['Inter']">Message and schedule directly through the platform </div>
-            <div className="left-[47px] top-[167px] absolute justify-start text-black text-3xl font-normal font-['Inter']">On your own time</div>
-        </div>
-        <div className="w-96 h-80 left-[470px] top-[188px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-[130px] top-[31px] absolute overflow-hidden">
-                <div className="w-24 h-24 left-0 top-0 absolute" />
-                <div className="w-4 h-4 left-[40px] top-[8px] absolute bg-lime-600" />
-                <div className="w-16 h-20 left-[16px] top-[8px] absolute bg-lime-600" />
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Pipe className="w-10 h-10 text-black" />
+              </div>
+              <span className="text-lg font-medium">Plumbing</span>
             </div>
-            <div className="w-80 left-[36px] top-[231px] absolute justify-start text-black text-xl font-normal font-['Inter']">Background checks, reviews, and<br/>job portfolios help homeowners</div>
-            <div className="left-[36px] top-[175px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Quality contractors</div>
-        </div>
-        <div className="w-[1280.45px] h-0 left-0 top-[586px] absolute outline outline-1 outline-offset-[-0.50px] outline-black"></div>
-    </div>
-    <div className="w-[1280px] h-[589px] left-0 top-[12px] absolute overflow-hidden">
-        <div className="w-[1280px] h-[589px] left-0 top-0 absolute bg-white" />
-        <div className="w-[559px] h-[589px] left-[721px] top-0 absolute bg-white" />
-        <div className="w-[726px] h-80 left-0 top-[149px] absolute overflow-hidden">
-            <div className="w-[640px] left-[52px] top-[42px] absolute justify-start text-black text-5xl font-normal font-['Inter']">We provide home service jobs to those who want to do the job</div>
-            <div className="w-36 h-11 left-[48px] top-[250px] absolute bg-sky-600 rounded-2xl outline outline-1 outline-offset-[-1px] outline-white overflow-hidden">
-                <div className="left-[31px] top-[8px] absolute justify-start text-white text-2xl font-normal font-['Inter']">Sign Up</div>
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Hammer className="w-10 h-10 text-black" />
+              </div>
+              <span className="text-lg font-medium">Carpentry</span>
             </div>
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Paintbrush className="w-10 h-10 text-black" />
+              </div>
+              <span className="text-lg font-medium">Painting</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Brush className="w-10 h-10 text-black" />
+              </div>
+              <span className="text-lg font-medium">Cleaning</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Settings className="w-10 h-10 text-black" />
+              </div>
+              <span className="text-lg font-medium">Miscellaneous</span>
+            </div>
+          </div>
         </div>
-        <img className="w-[573px] h-[600px] left-[707px] top-[-11px] absolute rounded-2xl" src="https://placehold.co/573x600" />
+      </section>
+
+      {/* Why Job Berry Works Better Section */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto px-6 max-w-5xl text-center">
+          <h2 className="text-4xl font-bold mb-12">Why Job Berry Works Better for Everyone</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="flex flex-col items-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <DollarSign className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Only pay for real leads</h3>
+              <p className="text-gray-600">
+                Homeowners only pay for verified contractors, no wasted fees
+              </p>
+            </div>
+            <div className="flex flex-col items-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <Users className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Quality contractors</h3>
+              <p className="text-gray-600">
+                Background checks, reviews, and job portfolios help homeowners
+              </p>
+            </div>
+            <div className="flex flex-col items-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <Clock className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">On your own time</h3>
+              <p className="text-gray-600">
+                Message and schedule directly through the platform
+              </p>
+            </div>
+          </div>
+
+          {/* Testimonials */}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+            <div className="relative p-8 bg-white rounded-2xl shadow-md border border-gray-200 max-w-sm text-left">
+              <p className="text-gray-700 italic mb-4">
+                "I was nervous to hire someone online. Job Berry showed me reviews, photos, and gave me peace of mind."
+              </p>
+              <p className="font-semibold text-black">- Lisa T., Homeowner, NJ</p>
+            </div>
+            <div className="relative p-8 bg-blue-100 rounded-2xl shadow-md border border-blue-200 max-w-sm text-left">
+              <p className="text-gray-700 italic mb-4">
+                "I used to spend $300 a month on bad leads. Now I only pay when someone actually books me."
+              </p>
+              <p className="font-semibold text-black">- Sean R., Carpenter, NY</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mid-page Hero/Banner */}
+      <section className="relative bg-blue-600 py-16 md:py-24 text-white overflow-hidden">
+        <img
+          src="/placeholder.svg?height=400&width=1200"
+          alt="Construction workers on roof"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
+        />
+        <div className="relative container mx-auto px-6 flex flex-col md:flex-row items-center justify-between z-10">
+          <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
+            <p className="text-3xl md:text-4xl font-bold leading-tight">
+              Job Berry is the only contractor platform that guarantees leads, protects payments, and helps both contractors and homeowners build trust.
+            </p>
+          </div>
+          <div className="md:w-1/2 text-center md:text-right">
+            <p className="text-2xl md:text-3xl font-semibold">
+              No hidden fees, wasted time, or marketing gimmicks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Let's Get You Connected Section */}
+      <section className="bg-white py-16 md:py-24 text-center">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <h2 className="text-4xl font-bold mb-12">Let's Get You Connected.</h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+            <div className="md:w-1/3 text-center">
+              <h3 className="text-2xl font-semibold mb-4">For Contractors</h3>
+              <p className="text-gray-600">
+                Join a network trusted by real clients and stop paying for empty leads
+              </p>
+            </div>
+            <div className="md:w-1/3 flex flex-col items-center">
+              <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <Leaf className="w-12 h-12 text-green-600" />
+              </div>
+              <button className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium transition-colors shadow-lg">
+                Sign Up
+              </button>
+            </div>
+            <div className="md:w-1/3 text-center">
+              <h3 className="text-2xl font-semibold mb-4">For Homeowners</h3>
+              <p className="text-gray-600">
+                Find a verified contractor you can trust in minutes with full transparency.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-gray-50 py-16 md:py-24">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <h2 className="text-4xl font-bold mb-12 text-center">FAQ (Frequently Asked Questions)</h2>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div key={index} className="border border-gray-300 rounded-lg bg-white shadow-sm">
+                <button
+                  className="flex justify-between items-center w-full p-6 text-left font-semibold text-lg text-black hover:bg-gray-100 transition-colors"
+                  onClick={() => toggleFaq(index)}
+                >
+                  {faq.question}
+                  {openFaq === index ? <ChevronUp className="w-6 h-6 text-gray-600" /> : <ChevronDown className="w-6 h-6 text-gray-600" />}
+                </button>
+                {openFaq === index && (
+                  <div className="p-6 pt-0 text-gray-700">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-blue-600 text-white py-4 text-center">
+        <p className="text-sm">&copy; Team Jay {new Date().getFullYear()}</p>
+      </footer>
     </div>
-    <div className="w-44 h-32 left-[10px] top-[18px] absolute bg-white overflow-hidden">
-        <div className="w-44 h-9 left-0 top-[93.99px] absolute bg-white" />
-        <img className="w-24 h-2 left-[49.45px] top-[75.12px] absolute" src="https://placehold.co/90x8" />
-        <img className="w-44 h-24 left-0 top-0 absolute" src="https://placehold.co/171x95" />
-        <img className="w-16 h-9 left-[26.24px] top-[94.01px] absolute" src="https://placehold.co/71x37" />
-        <img className="w-14 h-[5.14px] left-[80.01px] top-[125.67px] absolute" src="https://placehold.co/60x5" />
-        <img className="w-7 h-8 left-[91.18px] top-[96.89px] absolute" src="https://placehold.co/30x31" />
-        <img className="w-7 h-8 left-[109.66px] top-[97.01px] absolute" src="https://placehold.co/28x31" />
-        <img className="w-6 h-9 left-[89.46px] top-[94.18px] absolute" src="https://placehold.co/24x37" />
-    </div>
-    <div className="w-[1280px] h-[648px] left-0 top-[589px] absolute overflow-hidden">
-        <div className="left-[495px] top-[71px] absolute justify-start text-black text-5xl font-normal font-['Inter']">Our Services</div>
-        <div className="w-24 h-24 left-[951px] top-[213px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-0 top-0 absolute" />
-            <div className="w-16 h-20 left-[12.44px] top-[6px] absolute bg-black" />
-        </div>
-        <div className="w-24 h-24 left-[582px] top-[213px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-0 top-0 absolute" />
-            <div className="w-9 h-7 left-[46px] top-[8.90px] absolute bg-black" />
-            <div className="w-5 h-5 left-[20.19px] top-[36.68px] absolute bg-black" />
-            <div className="w-14 h-16 left-[15.38px] top-[22.19px] absolute bg-black" />
-        </div>
-        <div className="w-24 h-24 left-[578px] top-[420px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-0 top-0 absolute" />
-            <div className="w-16 h-20 left-[12px] top-[4px] absolute bg-black" />
-        </div>
-        <div className="w-24 h-24 left-[197px] top-[213px] absolute overflow-hidden">
-            <div className="w-20 h-20 left-[3px] top-[4px] absolute bg-black" />
-        </div>
-        <div className="w-24 h-24 left-[162px] top-[504px] absolute overflow-hidden">
-            <div className="w-24 h-24 left-0 top-0 absolute" />
-        </div>
-        <div className="w-14 h-14 left-[979px] top-[436px] absolute bg-black" />
-        <div className="w-9 h-9 left-[1024.07px] top-[480px] absolute bg-black" />
-        <div className="left-[174px] top-[324px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Electrical</div>
-        <div className="left-[184px] top-[533px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Painting</div>
-        <div className="left-[564px] top-[533px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Cleaning</div>
-        <div className="left-[917px] top-[533px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Miscellaneous</div>
-        <div className="left-[565px] top-[324px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Plumbing</div>
-        <div className="left-[930px] top-[324px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Carpentry</div>
-    </div>
-    <div className="w-32 h-11 left-[1140px] top-[21px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-white overflow-hidden">
-        <div className="left-[27px] top-[8px] absolute justify-start text-white text-2xl font-normal font-['Inter']">Log in</div>
-    </div>
-</div>
     )
 }
-
-export default UniversalLanding
