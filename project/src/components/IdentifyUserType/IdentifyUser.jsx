@@ -1,31 +1,65 @@
 import { useState, useEffect } from 'react'
+import { Star, User, HardHat } from 'lucide-react'
 
-/* service type selection */
+/* identify user type */
 
-function Identify() {
+export default function Identify() {
+    const handleClientClick = () => {
+    alert("Client account type selected! Navigating to client sign-up.");
+    // In a real application, you would navigate to the client sign-up flow here.
+  }
+
+  const handleContractorClick = () => {
+    alert("Contractor account type selected! Navigating to contractor onboarding.");
+    // In a real application, you would navigate to the contractor onboarding flow here.
+  }
     return (
-    <div className="w-[1280px] h-[832px] relative bg-white overflow-hidden">
-    <div className="left-[459px] top-[181px] absolute justify-start text-black text-xl font-normal font-['Inter']">Choose your account type to continue</div>
-    <div className="left-[390px] top-[108px] absolute justify-start text-black text-5xl font-normal font-['Inter']">Let’s Get You Started</div>
-    <div className="w-[493px] h-[452px] left-[136px] top-[242px] absolute overflow-hidden">
-        <div className="w-96 h-96 left-[27px] top-[6px] absolute rounded-[20px] outline outline-[3px] outline-offset-[-3px] outline-zinc-300 overflow-hidden">
-            <div className="left-[74px] top-[176px] absolute justify-start text-black text-4xl font-normal font-['Inter']">I need work done</div>
-            <div className="w-28 h-28 left-[167px] top-[37px] absolute bg-blue-400/40 rounded-full" />
-            <div className="w-14 h-12 left-[195px] top-[64px] absolute bg-sky-600" />
-            <div className="left-[55px] top-[254px] absolute text-center justify-start text-black text-2xl font-normal font-['Inter']">Post projects, hire <br/>contractors, and get your home <br/>improvements done right.</div>
+    <div className="min-h-screen bg-white p-6 flex flex-col items-center justify-center">
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Logo */}
+        <div className="mb-12">
+          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto">
+            <Star className="w-6 h-6 text-white fill-current" />
+          </div>
         </div>
-    </div>
-    <div className="w-[461px] h-[456px] left-[671px] top-[238px] absolute overflow-hidden">
-        <div className="w-96 h-96 left-[17px] top-[10px] absolute rounded-[20px] outline outline-[3px] outline-offset-[-3px] outline-zinc-300 overflow-hidden">
-            <div className="w-28 h-28 left-[157px] top-[43px] absolute bg-blue-400/40 rounded-full" />
-            <img className="w-24 h-20 left-[68px] top-[52px] absolute bg-blend-color" src="https://placehold.co/89x86" />
-            <img className="w-16 h-20 left-[176px] top-[59px] absolute" src="https://placehold.co/72x73" />
+
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-semibold text-black mb-4">Let's Get You Started</h1>
+          <p className="text-lg text-gray-600">Choose your account type to continue</p>
         </div>
-        <div className="left-[96px] top-[190px] absolute justify-start text-black text-4xl font-normal font-['Inter']">I’m a contractor</div>
-        <div className="left-[57px] top-[259px] absolute text-center justify-start text-black text-2xl font-normal font-['Inter']">Find quality leads, grow your <br/>business, and get paid for <br/>great work.</div>
+
+        {/* Account Type Selection Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Client Card */}
+          <button
+            onClick={handleClientClick}
+            className="flex flex-col items-center p-8 rounded-2xl border border-gray-300 bg-white shadow-sm hover:border-blue-600 hover:shadow-md transition-all cursor-pointer"
+          >
+            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+              <User className="w-10 h-10 text-blue-600" />
+            </div>
+            <h2 className="text-xl font-semibold text-black mb-2">I need work done</h2>
+            <p className="text-gray-600 text-center">
+              Post projects, hire contractors, and get your home improvements done right.
+            </p>
+          </button>
+
+          {/* Contractor Card */}
+          <button
+            onClick={handleContractorClick}
+            className="flex flex-col items-center p-8 rounded-2xl border border-gray-300 bg-white shadow-sm hover:border-blue-600 hover:shadow-md transition-all cursor-pointer"
+          >
+            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+              <HardHat className="w-10 h-10 text-blue-600" />
+            </div>
+            <h2 className="text-xl font-semibold text-black mb-2">I'm a contractor</h2>
+            <p className="text-gray-600 text-center">
+              Find quality leads, grow your business, and get paid for great work.
+            </p>
+          </button>
+        </div>
+      </div>
     </div>
-</div>
     )
 }
-
-export default Identify

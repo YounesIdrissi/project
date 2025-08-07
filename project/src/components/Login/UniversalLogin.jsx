@@ -1,49 +1,110 @@
 import { useState, useEffect } from 'react'
+import { Star, Leaf } from 'lucide-react'
 
-/* service type selection */
+/* universal login for contractors and home (owner) clients */
 
-function UserLogin() {
+export default function UserLogin() {
+    const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleLogin = () => {
+    console.log("Login Attempt:", { email, password });
+    alert("Login button clicked! Data logged to console.");
+    // In a real application, you would handle authentication here.
+  }
+
+  const handleForgotPassword = () => {
+    alert("Forgot password clicked!");
+  }
+
+  const handleSocialLogin = (provider) => {
+    alert(`Logging in with ${provider}!`);
+  }
+
+  const handleSignUp = () => {
+    alert("Sign up clicked! Navigating to sign-up page.");
+    // In a real application, you would navigate to the sign-up flow here.
+  }
     return (
-    <div className="w-[1280px] h-[832px] relative bg-white overflow-hidden">
-    <div className="w-[770px] h-[780px] left-[255px] top-[26px] absolute overflow-hidden">
-        <div className="w-[530px] h-14 left-[124px] top-[454px] absolute bg-sky-600 rounded-[20px]">
-            <div className="left-[228px] top-[15px] absolute justify-start text-white text-xl font-normal font-['Inter']">Log In</div>
+    <div className="min-h-screen bg-white p-6 flex items-center justify-center">
+      <div className="max-w-md w-full mx-auto">
+        {/* Login Card */}
+        <div className="border border-gray-300 rounded-2xl p-8 bg-white shadow-sm text-center">
+          {/* Logo */}
+          <div className="relative w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-8">
+            <Star className="w-10 h-10 text-white fill-current" />
+            <Leaf className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-green-500 rotate-45" />
+            <Leaf className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 w-6 h-6 text-green-500 -rotate-45" />
+          </div>
+
+          {/* Email Input */}
+          <div className="mb-4">
+            <input
+              type="email"
+              placeholder="E-mail address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full h-12 px-4 rounded-full border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all placeholder-gray-400"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="mb-6">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full h-12 px-4 rounded-full border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all placeholder-gray-400"
+            />
+            <button
+              onClick={handleForgotPassword}
+              className="text-sm text-blue-600 hover:underline mt-2 block text-right"
+            >
+              Forgot password?
+            </button>
+          </div>
+
+          {/* Log In Button */}
+          <button
+            onClick={handleLogin}
+            className="w-full px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all font-medium mb-6"
+          >
+            Log In
+          </button>
+
+          {/* Or log in with section */}
+          <div className="flex items-center mb-6">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-4 text-gray-500 text-sm">Or log in with</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+
+          {/* Social Login Buttons */}
+          <div className="flex justify-center gap-4 mb-8">
+            <button
+              onClick={() => handleSocialLogin("Google")}
+              className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-lg font-semibold text-gray-700 hover:border-blue-600 transition-all"
+            >
+              G
+            </button>
+            <button
+              onClick={() => handleSocialLogin("Facebook")}
+              className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-lg font-semibold text-gray-700 hover:border-blue-600 transition-all"
+            >
+              f
+            </button>
+          </div>
+
+          {/* Sign Up Link */}
+          <p className="text-sm text-gray-600">
+            Don't have an account?{" "}
+            <button onClick={handleSignUp} className="text-blue-600 hover:underline font-medium">
+              Sign up
+            </button>
+          </p>
         </div>
-        <div className="w-[705px] h-[712px] left-[33px] top-[30px] absolute rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border border-zinc-300" />
-        <div className="w-[599px] h-32 left-[97px] top-[541px] absolute overflow-hidden">
-            <div className="left-[238px] top-[11px] absolute justify-start text-black text-base font-normal font-['Inter']">Or log in with</div>
-            <div className="w-44 h-0 left-[35px] top-[21px] absolute outline outline-1 outline-offset-[-0.50px] outline-black"></div>
-            <div className="w-44 h-0 left-[372px] top-[21px] absolute outline outline-1 outline-offset-[-0.50px] outline-black"></div>
-            <div className="w-28 h-20 left-[178px] top-[41px] absolute overflow-hidden">
-                <div className="w-24 h-16 left-[11px] top-[5px] absolute rounded-[20px] border border-black" />
-                <img className="w-16 h-10 left-[24px] top-[16px] absolute" src="https://placehold.co/64x41" />
-            </div>
-            <div className="w-28 h-20 left-[289px] top-[41px] absolute overflow-hidden">
-                <div className="w-24 h-16 left-[11px] top-[5px] absolute rounded-[20px] border border-black" />
-                <img className="w-16 h-10 left-[24px] top-[16px] absolute" src="https://placehold.co/64x41" />
-            </div>
-        </div>
-        <div className="w-64 h-7 left-[255px] top-[689px] absolute overflow-hidden">
-            <div className="left-[13px] top-[2px] absolute justify-start text-black text-base font-normal font-['Inter'] underline">Don’t have an account? Sign up</div>
-        </div>
-        <div className="w-[605px] h-48 left-[91px] top-[228px] absolute overflow-hidden">
-            <div className="w-[529px] h-14 left-[30px] top-[18px] absolute">
-                <div className="w-[530px] h-14 left-0 top-0 absolute rounded-[20px] border border-black" />
-                <div className="left-[22px] top-[15px] absolute justify-start text-zinc-400 text-xl font-normal font-['Inter']">E-mail address</div>
-            </div>
-            <div className="w-[531px] h-14 left-[30px] top-[104px] absolute">
-                <div className="w-[531px] h-14 left-0 top-0 absolute rounded-[20px] border border-black" />
-                <div className="left-[22px] top-[15px] absolute justify-start text-zinc-400 text-xl font-normal font-['Inter']">Password</div>
-            </div>
-            <div className="left-[458px] top-[168px] absolute justify-start text-black text-xs font-normal font-['Inter'] underline">Forgot password?</div>
-        </div>
-        <div className="w-44 h-32 left-[305px] top-[74px] absolute overflow-hidden">
-            <img className="w-16 h-16 left-[48px] top-[43px] absolute" src="https://placehold.co/71x72" />
-            <img className="w-16 h-9 left-[84.13px] top-[6px] absolute origin-top-left rotate-[13.80deg]" src="https://placehold.co/68x35" />
-        </div>
+      </div>
     </div>
-</div>
     )
 }
-
-export default UserLogin
