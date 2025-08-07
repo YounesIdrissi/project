@@ -1,55 +1,62 @@
 import { useState, useEffect } from 'react'
-import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
 /* description of job */
 
 export default function JobFlowTwo() {
+    const [projectDescription, setProjectDescription] = useState("")
+
     return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-2xl mx-auto">
-        {/* Icon */}
+    <div className="min-h-screen bg-white p-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Logo */}
         <div className="mb-12">
           <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-white" />
+            <Star className="w-6 h-6 text-white fill-current" />
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className="space-y-8">
-          {/* Title */}
-          <h1 className="text-3xl font-medium text-gray-900">
-            Describe your project in detail
-          </h1>
-
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold text-black mb-6">Describe your project in detail</h1>
+          
           {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div className="bg-blue-600 h-2 rounded-full w-1/3"></div>
-          </div>
-
-          {/* Form Card */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-8">
-            <div className="space-y-4">
-              <label className="block text-lg font-medium text-gray-900">
-                Project description
-              </label>
-              <textarea
-                placeholder="Provide what needs to be done, any specific requirements, and expectations"
-                className="w-full h-48 p-4 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
-              />
+          <div className="relative">
+            <div className="w-full h-2 bg-gray-300 rounded-full">
+              <div className="w-3/8 h-2 bg-blue-600 rounded-full"></div>
             </div>
           </div>
+        </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center pt-4">
-            <button className="flex items-center gap-2 px-6 py-3 text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-50 transition-colors">
-              <ChevronLeft className="w-4 h-4" />
-              Previous
-            </button>
-            <button className="flex items-center gap-2 px-6 py-3 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors">
-              Next
-              <ChevronRight className="w-4 h-4" />
-            </button>
+        {/* Main Content Card */}
+        <div className="border border-gray-300 rounded-2xl mb-8 bg-white shadow-sm">
+          <div className="p-8">
+            <h2 className="text-lg font-medium text-black mb-6">
+              Project description
+            </h2>
+
+            {/* Project Description Textarea */}
+            <textarea
+              placeholder="Provide what needs to be done, any specific requirements, and expectations"
+              value={projectDescription}
+              onChange={(e) => setProjectDescription(e.target.value)}
+              rows={8}
+              className="w-full p-4 rounded-2xl border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all resize-none placeholder-gray-400"
+            />
           </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between items-center">
+          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all">
+            <ChevronLeft className="w-4 h-4" />
+            Previous
+          </button>
+          
+          <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all">
+            Next
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>

@@ -1,26 +1,42 @@
 import { useState, useEffect } from 'react'
 
-/* service type selection */
+/* job post complete */
 
-function JobFlowEight() {
+export default function JobFlowEight() {
     return (
-    <div className="w-[1280px] h-[832px] relative bg-white overflow-hidden">
-    <div className="left-[448px] top-[305px] absolute justify-start text-black text-4xl font-normal font-['Inter']">Job's in, berry sweet!</div>
-    <div className="w-36 h-10 left-[569px] top-[230px] absolute bg-blue-400/40 rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[41px] top-[10px] absolute justify-start text-sky-600 text-base font-normal font-['Inter']">Pending</div>
-    </div>
-    <div className="left-[366px] top-[364px] absolute justify-start text-black text-2xl font-normal font-['Inter']"><br/> We'll notify you once contractors start applying.</div>
-    <div className="w-[899px] h-[545px] left-[190px] top-[120px] absolute rounded-[20px] outline outline-1 outline-offset-[-1px] outline-zinc-300 overflow-hidden">
-        <div className="w-44 h-12 left-[553px] top-[407px] absolute bg-sky-600 rounded-2xl overflow-hidden">
-            <div className="left-[29px] top-[13px] absolute justify-start text-white text-lg font-normal font-['Inter']">Return Home</div>
+    <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+      <div className="max-w-2xl mx-auto">
+        {/* Main Success Card */}
+        <div className="border border-gray-300 rounded-2xl bg-white shadow-sm p-12 text-center">
+          {/* Status Badge */}
+          {/* <div className="mb-8">
+            <span className="inline-block px-6 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
+              Pending
+            </span>
+          </div> */}
+
+          {/* Success Message */}
+          <h1 className="text-4xl font-semibold text-black mb-6">
+            Job's in, berry sweet!
+          </h1>
+
+          {/* Description */}
+          <p className="text-lg text-gray-600 mb-12">
+            We'll notify you once contractors start applying.
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="px-8 py-3 rounded-full border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-black transition-all font-medium">
+              Edit Job
+            </button>
+            
+            <button className="px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all font-medium">
+              Return Home
+            </button>
+          </div>
         </div>
-        <div className="w-44 h-12 left-[182px] top-[407px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-zinc-400 overflow-hidden">
-            <div className="left-[51px] top-[13px] absolute justify-start text-zinc-400 text-lg font-normal font-['Inter']">Edit Job</div>
-        </div>
-        <div className="left-[393px] top-[342px] absolute justify-start text-black text-lg font-normal font-['Inter'] underline">View my jobs</div>
+      </div>
     </div>
-</div>
     )
 }
-
-export default JobFlowEight

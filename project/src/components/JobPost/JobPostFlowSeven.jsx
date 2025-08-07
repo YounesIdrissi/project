@@ -1,29 +1,66 @@
 import { useState, useEffect } from 'react'
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
-/* service type selection */
+/* schedule time and date */
 
-function JobFlowSeven() {
+export default function JobFlowSeven() {
+    const [preferredDateTime, setPreferredDateTime] = useState("")
+
     return (
-    <div className="w-[1280px] h-[832px] relative bg-white overflow-hidden">
-    <div className="w-80 h-14 left-[342px] top-[173px] absolute bg-white">
-        <div className="w-[688px] h-6 left-[-50px] top-0 absolute rounded-[20px] border border-zinc-400" />
-        <div className="w-[688px] h-6 left-[-50px] top-0 absolute bg-sky-600 rounded-[20px] border border-black" />
+    <div className="min-h-screen bg-white p-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Logo */}
+        <div className="mb-12">
+          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+            <Star className="w-6 h-6 text-white fill-current" />
+          </div>
+        </div>
+
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold text-black mb-6">Set your time</h1>
+          
+          {/* Progress Bar - 100% Complete */}
+          <div className="relative">
+            <div className="w-full h-2 bg-gray-300 rounded-full">
+              <div className="w-full h-2 bg-blue-600 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content Card */}
+        <div className="border border-gray-300 rounded-2xl mb-8 bg-white shadow-sm">
+          <div className="p-8">
+            <h2 className="text-lg font-medium text-black mb-6">
+              Preferred date and time
+            </h2>
+
+            {/* Date and Time Input */}
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="e.g., Aug 1, anytime between 9am-3pm"
+                value={preferredDateTime}
+                onChange={(e) => setPreferredDateTime(e.target.value)}
+                className="w-full h-12 px-4 rounded-full border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all text-lg placeholder-gray-400"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between items-center">
+          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all">
+            <ChevronLeft className="w-4 h-4" />
+            Previous
+          </button>
+          
+          <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all">
+            Submit
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
     </div>
-    <img className="w-14 h-14 left-[64px] top-[28px] absolute" src="https://placehold.co/55x57" />
-    <div className="left-[297px] top-[120px] absolute justify-start text-black text-3xl font-normal font-['Inter']">Set your time</div>
-    <div className="w-20 h-10 left-[895px] top-[621px] absolute bg-sky-600 rounded-2xl overflow-hidden">
-        <div className="left-[20px] top-[10px] absolute justify-start text-white text-base font-normal font-['Inter']">Next →</div>
-    </div>
-    <div className="w-32 h-10 left-[297px] top-[621px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-zinc-400 overflow-hidden">
-        <div className="left-[20px] top-[10px] absolute justify-start text-zinc-400 text-base font-normal font-['Inter']">← Previous</div>
-    </div>
-    <div className="w-[686px] h-80 left-[297px] top-[227px] absolute rounded-[20px] outline outline-1 outline-offset-[-1px] outline-zinc-300 overflow-hidden">
-        <div className="left-[45px] top-[33px] absolute justify-start text-black text-xl font-normal font-['Inter']">Preferred date and time</div>
-        <div className="w-[573px] h-10 left-[45px] top-[76px] absolute rounded-2xl border-[0.77px] border-black" />
-        <div className="left-[64px] top-[86px] absolute justify-start text-zinc-300 text-lg font-normal font-['Inter']">e.g., Aug 1, anytime between 9am–3pm</div>
-    </div>
-</div>
     )
 }
-
-export default JobFlowSeven
