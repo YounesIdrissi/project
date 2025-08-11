@@ -1,70 +1,126 @@
 import { useState, useEffect } from 'react'
+import { Star, Bell, User, Plus, ChevronLeft, ChevronRight } from "lucide-react"
 
 /* service type selection */
 
-function HDefaultDash() {
+export default function HDefault() {
     return (
-        <div className="w-[1280px] h-[832px] relative bg-white overflow-hidden">
-        <img className="w-14 h-14 left-[64px] top-[28px] absolute" src="https://placehold.co/55x57" />
-        <div className="left-[170px] top-[120.70px] absolute justify-start text-black text-4xl font-normal font-['Inter']">Welcome, Linda</div>
-        <div className="w-52 h-12 left-[594px] top-[119px] absolute">
-            <div className="left-[57.83px] top-[12.60px] absolute justify-start text-black text-xl font-normal font-['Inter']">Request a job</div>
-            <img className="w-11 h-9 left-[8.02px] top-[7.44px] absolute" src="https://placehold.co/42x35" />
-            <div className="w-52 h-12 left-0 top-0 absolute rounded-lg border-[0.57px] border-zinc-300" />
-        </div>
-        <div className="left-[931px] top-[132.70px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Previous</div>
-        <div className="left-[1012px] top-[456.70px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Statements</div>
-        <div className="left-[923px] top-[530.70px] absolute justify-start text-black text-lg font-normal font-['Inter']">This Month</div>
-        <div className="left-[923px] top-[611.70px] absolute justify-start text-black text-lg font-normal font-['Inter']">Last Month</div>
-        <div className="left-[931px] top-[196.70px] absolute justify-start text-black text-lg font-normal font-['Inter']">Plumbing</div>
-        <div className="left-[931px] top-[222.70px] absolute justify-start text-zinc-400 text-sm font-normal font-['Inter']">Completed on July 25</div>
-        <div className="left-[1087px] top-[132.70px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Confirmed</div>
-        <div className="left-[923px] top-[563.70px] absolute justify-start text-neutral-500 text-sm font-normal font-['Inter']">Jobs Done: 1</div>
-        <div className="left-[923px] top-[644.70px] absolute justify-start text-neutral-500 text-sm font-normal font-['Inter']">Jobs Done: 0</div>
-        <div className="left-[1184px] top-[196.70px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$250</div>
-        <div className="left-[1192px] top-[530.70px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$250</div>
-        <div className="left-[1214px] top-[611.70px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$0</div>
-        <div className="w-40 h-7 left-[1087px] top-[702.70px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-            <div className="left-[16px] top-[5px] absolute justify-start text-sky-600 text-base font-normal font-['Inter']">View Statements</div>
-        </div>
-        <div className="w-32 h-7 left-[1120px] top-[372.70px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-            <div className="left-[16px] top-[5px] absolute justify-start text-sky-600 text-base font-normal font-['Inter']">View Details</div>
-        </div>
-        <div className="w-80 h-0 left-[911.50px] top-[685.20px] absolute outline outline-1 outline-offset-[-0.50px] outline-zinc-300" />
-        <div className="w-80 h-0 left-[911.50px] top-[355.20px] absolute outline outline-1 outline-offset-[-0.50px] outline-zinc-300" />
-        <div className="w-96 h-64 left-[897px] top-[502.70px] absolute rounded-[20px] border border-zinc-300" />
-        <div className="w-96 h-64 left-[897px] top-[172.70px] absolute rounded-[20px] border border-zinc-300" />
-        <div className="w-20 h-5 left-[1027px] top-[196.70px] absolute bg-lime-600/70 rounded-2xl outline outline-1 outline-offset-[-1px] outline-lime-600 overflow-hidden">
-            <div className="left-[9px] top-[3px] absolute justify-start text-white text-xs font-normal font-['Inter']">Completed</div>
-        </div>
-        <div className="w-24 h-0 left-[936.50px] top-[172.70px] absolute outline outline-[3px] outline-offset-[-1.50px] outline-sky-600" />
-        <div className="left-[181px] top-[199.70px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Your Posted Jobs</div>
-        <div className="left-[181px] top-[231.70px] absolute justify-start text-neutral-500 text-base font-normal font-['Inter']">Start your next project</div>
-        <div className="w-32 h-5 left-[682px] top-[231px] absolute rounded-[20px] outline outline-1 outline-offset-[-1px] outline-zinc-300 overflow-hidden">
-            <div className="left-[55px] top-[4px] absolute justify-start text-neutral-500 text-[10px] font-normal font-['Inter']">Filter </div>
-            <img className="w-8 h-2.5 left-[27px] top-[5px] absolute" src="https://placehold.co/33x10" />
-        </div>
-        <div className="w-[633px] h-36 left-[170px] top-[263.70px] absolute overflow-hidden">
-            <div className="w-36 h-7 left-[453px] top-[97px] absolute bg-sky-600/25 rounded-2xl overflow-hidden">
-                <div className="left-[16px] top-[5px] absolute justify-start text-white text-base font-normal font-['Inter']">View Applicants</div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              <Star className="w-6 h-6 text-white fill-white" />
             </div>
-            <div className="left-[26px] top-[21px] absolute justify-start text-black text-lg font-normal font-['Inter']">Kitchen Renovation</div>
-            <div className="left-[37px] top-[47px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">Beverly Hills, CA 90210</div>
-            <div className="left-[44px] top-[110px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">ASAP</div>
-            <div className="left-[540px] top-[28px] absolute justify-start text-black text-lg font-normal font-['Inter']">$5,000</div>
-            <div className="left-[26px] top-[77px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">Open for applicants </div>
-            <div className="left-[203px] top-[47px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">2 hours ago</div>
-            <img className="w-9 h-3 left-[11px] top-[50px] absolute" src="https://placehold.co/38x12" />
-            <img className="w-10 h-3 left-[171px] top-[50px] absolute" src="https://placehold.co/39x12" />
-            <img className="w-11 h-3.5 left-[11px] top-[110px] absolute" src="https://placehold.co/45x15" />
-            <div className="w-[633px] h-36 left-0 top-[2px] absolute rounded-[20px] border border-zinc-300" />
-        </div>
-        <div className="left-[956px] top-[375.70px] absolute justify-start text-zinc-400 text-xs font-normal font-['Inter']">1/1</div>
-        <div className="left-[929px] top-[375.70px] absolute justify-start text-zinc-400 text-xs font-normal font-['Inter']"></div>
-        <div className="left-[999px] top-[391.70px] absolute origin-top-left rotate-180 justify-start text-zinc-400 text-xs font-normal font-['Inter']"></div>
-        <div className="w-10 h-11 left-[1115px] top-[34px] absolute bg-black" />
-    </div>
-    )
-}
+          </div>
 
-export default HDefaultDash
+          {/* Right side icons */}
+          <div className="flex items-center gap-4">
+            <Bell className="w-6 h-6 text-gray-600" />
+            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+              <User className="w-5 h-5 text-gray-600" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="px-6 py-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Welcome Section */}
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-semibold text-gray-900">Welcome, Linda</h1>
+            <button className="bg-blue-600 text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-blue-700 transition-colors">
+              <Plus className="w-5 h-5" />
+              Request a job
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column - Your Posted Jobs */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Your Posted Jobs</h2>
+              <p className="text-gray-600 mb-6">Start your next project</p>
+
+              {/* Empty state or job list would go here */}
+              <div className="h-64 flex items-center justify-center text-gray-400">
+                <p>No jobs posted yet</p>
+              </div>
+            </div>
+
+            {/* Right Column - Job History and Statements */}
+            <div className="space-y-6">
+              {/* Job History */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                {/* Tabs */}
+                <div className="flex border-b border-gray-200 mb-6">
+                  <button className="px-4 py-2 text-blue-600 border-b-2 border-blue-600 font-medium">Previous</button>
+                  <button className="px-4 py-2 text-gray-600 hover:text-gray-900">Confirmed</button>
+                </div>
+
+                {/* Job Entry */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <h3 className="font-medium text-gray-900">Repair</h3>
+                      <p className="text-sm text-gray-600">Completed on July 25</p>
+                    </div>
+                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                      Completed
+                    </span>
+                  </div>
+                  <span className="text-lg font-semibold text-gray-900">$250</span>
+                </div>
+
+                {/* Pagination and View Details */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <div className="flex items-center gap-2">
+                    <button className="p-1 text-gray-400">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <span className="text-sm text-gray-600">1/1</span>
+                    <button className="p-1 text-gray-400">
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <button className="text-blue-600 hover:text-blue-700 font-medium">View Details</button>
+                </div>
+              </div>
+
+              {/* Statements */}
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Statements</h3>
+
+                <div className="space-y-4">
+                  {/* This Month */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-gray-900">This Month</p>
+                      <p className="text-sm text-gray-600">Jobs Done: 1</p>
+                    </div>
+                    <span className="text-lg font-semibold text-gray-900">$250</span>
+                  </div>
+
+                  {/* Last Month */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-gray-900">Last Month</p>
+                      <p className="text-sm text-gray-600">Jobs Done: 0</p>
+                    </div>
+                    <span className="text-lg font-semibold text-gray-900">$0</span>
+                  </div>
+                </div>
+
+                <button className="w-full mt-6 text-blue-600 hover:text-blue-700 font-medium border border-blue-600 hover:border-blue-700 rounded-lg py-2 transition-colors">
+                  View Statements
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}

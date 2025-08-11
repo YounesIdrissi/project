@@ -22,8 +22,12 @@ import Identify from './components/IdentifyUserType/IdentifyUser';
 import UserLogin from './components/Login/UniversalLogin';
 
 import HDefaultDash from './components/HomeClientDashboard/HDefaultDash';
-import ApplicationsExist from './components/HomeClientDashboard/ApplicationsExist';
-import ViewApplicants from './components/HomeClientDashboard/ViewApplicants';
+import HNoApplicants from './components/HomeClientDashboard/HNoApplicants';
+import HApplicantsExist from './components/HomeClientDashboard/HApplicantsExist';
+import HApplicationsPage from './components/HomeClientDashboard/HApplicationsPage';
+import HJobConfirmed from './components/HomeClientDashboard/HJobConfirmed';
+import HJobComplete from './components/HomeClientDashboard/HJobComplete';
+import HaccountSettings from './components/HomeClientDashboard/HaccountSettings';
 
 import CDefaultDash from './components/ContractorDashboard/CDefaultDash';
 import CSettings from './components/ContractorDashboard/CSettings';
@@ -57,8 +61,12 @@ function App() {
     <UserLogin /> {}
 
     <HDefaultDash /> {}
-    <ApplicationsExist /> {}
-    <ViewApplicants /> {}
+    <HNoApplicants /> {}
+    <HApplicantsExist /> {}
+    <HApplicationsPage /> {}
+    <HJobConfirmed /> {}
+    <HJobComplete /> {}
+    <HaccountSettings /> {}
 
     <CDefaultDash /> {}
     <CSettings /> {}
