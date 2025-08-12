@@ -1,23 +1,31 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 /* business information */
 
-export default function CsignUpTwo() {
+export default function CsignUpTwo({ onNext, onBack }) {
     const [businessName, setBusinessName] = useState("")
   const [yearsExperience, setYearsExperience] = useState("")
   const [cityState, setCityState] = useState("")
 
   const handleNextClick = () => {
-    console.log("Form Data:", { businessName, yearsExperience, cityState });
-    alert("Next button clicked! Data logged to console.");
-    // In a real application, you would handle form submission/navigation here.
+    if (!businessName || !yearsExperience || !cityState) {
+      alert("Please fill in all fields")
+      return
+    }
+
+    // TODO: Add form validation
+    const formData = { businessName, yearsExperience, cityState }
+    console.log("Business Info Data:", formData)
+    onNext(formData)
   }
 
   const handlePreviousClick = () => {
-    alert("Previous button clicked!");
-    // In a real application, you would handle navigation back here.
+    onBack()
   }
+
 
     return (
     <div className="min-h-screen bg-white p-6">
@@ -32,11 +40,11 @@ export default function CsignUpTwo() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-6">Tell us about your business</h1>
-          
+
           {/* Progress Bar */}
           <div className="relative">
             <div className="w-full h-2 bg-gray-300 rounded-full">
-              <div className="w-[50%] h-2 bg-blue-600 rounded-full"></div> {/* Progress for step 2 */}
+              <div className="w-[50%] h-2 bg-blue-600 rounded-full"></div>
             </div>
           </div>
         </div>
@@ -81,15 +89,15 @@ export default function CsignUpTwo() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button 
+          <button
             onClick={handlePreviousClick}
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button 
+
+          <button
             onClick={handleNextClick}
             className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
           >

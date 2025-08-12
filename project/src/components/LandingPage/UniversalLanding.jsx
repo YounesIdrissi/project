@@ -1,39 +1,63 @@
-import { useState, useEffect } from 'react'
-import { Star, Leaf, Zap, PipetteIcon as Pipe, Hammer, Paintbrush, Brush, Settings, DollarSign, Users, Clock, ChevronDown, ChevronUp } from 'lucide-react'
+"use client"
+
+import {
+  Star,
+  Leaf,
+  Zap,
+  PipetteIcon as Pipe,
+  Hammer,
+  Paintbrush,
+  Brush,
+  Settings,
+  DollarSign,
+  Users,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react"
+import { useState } from "react"
 
 /* Landing page for first time visitors */
 
-export default function UniversalLanding() {
-    const [openFaq, setOpenFaq] = useState(null);
+export default function UniversalLanding({ onLogin, onSignUp }) {
+  const [openFaq, setOpenFaq] = useState(null)
 
   const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
+    setOpenFaq(openFaq === index ? null : index)
+  }
 
   const faqs = [
     {
       question: "How does Job Berry verify contractors?",
-      answer: "Job Berry verifies contractors through a rigorous process including background checks, license verification, and reviewing their past project portfolios and customer reviews to ensure quality and reliability."
+      answer:
+        "Job Berry verifies contractors through a rigorous process including background checks, license verification, and reviewing their past project portfolios and customer reviews to ensure quality and reliability.",
     },
     {
       question: "Do homeowners have to pay to use the platform?",
-      answer: "No, homeowners do not have to pay to use the platform. Posting a job and receiving bids from contractors is completely free for homeowners."
+      answer:
+        "No, homeowners do not have to pay to use the platform. Posting a job and receiving bids from contractors is completely free for homeowners.",
     },
     {
       question: "What if I'm not happy with the lead/job?",
-      answer: "If you're not satisfied, Job Berry's support team is available to mediate and help resolve any issues. Our platform is designed to protect both homeowners and contractors."
+      answer:
+        "If you're not satisfied, Job Berry's support team is available to mediate and help resolve any issues. Our platform is designed to protect both homeowners and contractors.",
     },
     {
       question: "How can I look at contracting reviews?",
-      answer: "Contractor reviews and ratings are publicly available on their profiles. You can browse through them before making a hiring decision."
+      answer:
+        "Contractor reviews and ratings are publicly available on their profiles. You can browse through them before making a hiring decision.",
     },
     {
       question: "What types of jobs do contractors offer?",
-      answer: "Contractors offer a wide range of services, with jobs spanning from skilled trades like plumbing and electrical work to professional services like project management and design. They can be found in various industries, including construction, IT, and healthcare, often hired for specific projects or tasks. (according to Google)"
+      answer:
+        "Contractors offer a wide range of services, with jobs spanning from skilled trades like plumbing and electrical work to professional services like project management and design. They can be found in various industries, including construction, IT, and healthcare, often hired for specific projects or tasks. (according to Google)",
     },
-  ];
+  ]
+
     return (
-    <div className="min-h-screen bg-white text-black">
+      <div className="min-h-screen bg-white text-black font-sans">
+      {" "}
+      {/* Apply font-sans here */}
       {/* Hero Section */}
       <section className="relative bg-white pb-16 md:pb-24 overflow-hidden">
         <div className="container mx-auto px-6 pt-8 md:pt-12 flex flex-col md:flex-row items-center justify-between">
@@ -47,7 +71,10 @@ export default function UniversalLanding() {
             <span className="text-2xl font-bold text-blue-600">JOB BERRY</span>
           </div>
           <div className="absolute top-6 right-6 md:static">
-            <button className="px-6 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors">
+            <button
+              onClick={onLogin}
+              className="px-6 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+            >
               Log In
             </button>
           </div>
@@ -59,7 +86,10 @@ export default function UniversalLanding() {
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
               We provide home service jobs to those who want to do the job
             </h1>
-            <button className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium transition-colors shadow-lg">
+            <button
+              onClick={onSignUp}
+              className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium transition-colors shadow-lg"
+            >
               Sign Up
             </button>
           </div>
@@ -73,7 +103,6 @@ export default function UniversalLanding() {
           </div>
         </div>
       </section>
-
       {/* Our Services Section */}
       <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-5xl text-center">
@@ -118,7 +147,6 @@ export default function UniversalLanding() {
           </div>
         </div>
       </section>
-
       {/* Why Job Berry Works Better Section */}
       <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-5xl text-center">
@@ -129,27 +157,21 @@ export default function UniversalLanding() {
                 <DollarSign className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Only pay for real leads</h3>
-              <p className="text-gray-600">
-                Homeowners only pay for verified contractors, no wasted fees
-              </p>
+              <p className="text-gray-600">Homeowners only pay for verified contractors, no wasted fees</p>
             </div>
             <div className="flex flex-col items-center p-6">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Quality contractors</h3>
-              <p className="text-gray-600">
-                Background checks, reviews, and job portfolios help homeowners
-              </p>
+              <p className="text-gray-600">Background checks, reviews, and job portfolios help homeowners</p>
             </div>
             <div className="flex flex-col items-center p-6">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                 <Clock className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold mb-3">On your own time</h3>
-              <p className="text-gray-600">
-                Message and schedule directly through the platform
-              </p>
+              <p className="text-gray-600">Message and schedule directly through the platform</p>
             </div>
           </div>
 
@@ -170,7 +192,6 @@ export default function UniversalLanding() {
           </div>
         </div>
       </section>
-
       {/* Mid-page Hero/Banner */}
       <section className="relative bg-blue-600 py-16 md:py-24 text-white overflow-hidden">
         <img
@@ -181,17 +202,15 @@ export default function UniversalLanding() {
         <div className="relative container mx-auto px-6 flex flex-col md:flex-row items-center justify-between z-10">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <p className="text-3xl md:text-4xl font-bold leading-tight">
-              Job Berry is the only contractor platform that guarantees leads, protects payments, and helps both contractors and homeowners build trust.
+              Job Berry is the only contractor platform that guarantees leads, protects payments, and helps both
+              contractors and homeowners build trust.
             </p>
           </div>
           <div className="md:w-1/2 text-center md:text-right">
-            <p className="text-2xl md:text-3xl font-semibold">
-              No hidden fees, wasted time, or marketing gimmicks.
-            </p>
+            <p className="text-2xl md:text-3xl font-semibold">No hidden fees, wasted time, or marketing gimmicks.</p>
           </div>
         </div>
       </section>
-
       {/* Let's Get You Connected Section */}
       <section className="bg-white py-16 md:py-24 text-center">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -199,15 +218,16 @@ export default function UniversalLanding() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             <div className="md:w-1/3 text-center">
               <h3 className="text-2xl font-semibold mb-4">For Contractors</h3>
-              <p className="text-gray-600">
-                Join a network trusted by real clients and stop paying for empty leads
-              </p>
+              <p className="text-gray-600">Join a network trusted by real clients and stop paying for empty leads</p>
             </div>
             <div className="md:w-1/3 flex flex-col items-center">
               <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-6">
                 <Leaf className="w-12 h-12 text-green-600" />
               </div>
-              <button className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium transition-colors shadow-lg">
+              <button
+                onClick={onSignUp}
+                className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium transition-colors shadow-lg"
+              >
                 Sign Up
               </button>
             </div>
@@ -220,7 +240,6 @@ export default function UniversalLanding() {
           </div>
         </div>
       </section>
-
       {/* FAQ Section */}
       <section className="bg-gray-50 py-16 md:py-24">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -233,23 +252,22 @@ export default function UniversalLanding() {
                   onClick={() => toggleFaq(index)}
                 >
                   {faq.question}
-                  {openFaq === index ? <ChevronUp className="w-6 h-6 text-gray-600" /> : <ChevronDown className="w-6 h-6 text-gray-600" />}
+                  {openFaq === index ? (
+                    <ChevronUp className="w-6 h-6 text-gray-600" />
+                  ) : (
+                    <ChevronDown className="w-6 h-6 text-gray-600" />
+                  )}
                 </button>
-                {openFaq === index && (
-                  <div className="p-6 pt-0 text-gray-700">
-                    {faq.answer}
-                  </div>
-                )}
+                {openFaq === index && <div className="p-6 pt-0 text-gray-700">{faq.answer}</div>}
               </div>
             ))}
           </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="bg-blue-600 text-white py-4 text-center">
         <p className="text-sm">&copy; Team Jay {new Date().getFullYear()}</p>
       </footer>
     </div>
     )
-}
+  }

@@ -1,21 +1,29 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 /* contact info */
 
-export default function HsignUpTwo() {
+export default function HsignUpTwo({ onNext, onBack }) {
     const [phoneNumber, setPhoneNumber] = useState("")
 
   const handleNextClick = () => {
-    console.log("Client Contact Data:", { phoneNumber });
-    alert("Next button clicked! Client contact data logged to console.");
-    // In a real application, this would typically be the final submission for the sign-up.
+    if (!phoneNumber) {
+      alert("Please enter your phone number")
+      return
+    }
+
+    // TODO: Add phone number validation
+    const formData = { phoneNumber }
+    console.log("Client Contact Data:", formData)
+    onNext(formData)
   }
 
   const handlePreviousClick = () => {
-    alert("Previous button clicked!");
-    // In a real application, you would handle navigation back to the GettingStartedClientStep here.
+    onBack()
   }
+
     return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-4xl mx-auto">
@@ -38,7 +46,7 @@ export default function HsignUpTwo() {
             {/* Phone Number Input */}
             <div>
               <input
-                type="tel" // Use type="tel" for phone numbers
+                type="tel"
                 placeholder="Phone number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
@@ -50,19 +58,19 @@ export default function HsignUpTwo() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button 
+          <button
             onClick={handlePreviousClick}
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button 
+
+          <button
             onClick={handleNextClick}
             className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
           >
-            Submit
+            Complete Sign Up
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>

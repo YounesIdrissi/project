@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from "react"
 import { ArrowLeft, User, Star } from "lucide-react"
 
 /* service type selection */
 
-export default function CaccountSettings() {
+export default function CaccountSettings({ onBack, onSignOut }) {
     const [formData, setFormData] = useState({
     name: "Sean Jones",
     email: "seanj@gmail.com",
@@ -24,24 +24,26 @@ export default function CaccountSettings() {
   }
 
   const handleGoBack = () => {
-    alert("Going back to dashboard")
+    onBack()
   }
 
   const handleEditCards = () => {
-    alert("Edit payment cards")
+    // TODO: Navigate to payment method editing flow
+    alert("Edit payment cards functionality would be implemented here")
   }
 
   const handleSignOut = () => {
-    alert("Signing out")
+    // TODO: Clear user session and authentication tokens
+    console.log("Contractor signing out")
+    onSignOut()
   }
 
     return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          {/* Logo */}
-          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+        <div className="flex items-center">
+          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
             <Star className="w-6 h-6 text-white fill-white" />
           </div>
         </div>
@@ -53,7 +55,10 @@ export default function CaccountSettings() {
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
           {/* Go Back Link */}
-          <button onClick={handleGoBack} className="flex items-center text-gray-600 hover:text-gray-800 mb-8">
+          <button
+            onClick={handleGoBack}
+            className="flex items-center text-gray-600 hover:text-gray-800 mb-8 transition-colors"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Go back
           </button>
@@ -106,7 +111,10 @@ export default function CaccountSettings() {
                   <span className="text-gray-900 font-medium">Payment Methods</span>
                   <span className="text-gray-700">{formData.paymentMethod}</span>
                 </div>
-                <button onClick={handleEditCards} className="text-gray-400 hover:text-gray-600 text-sm">
+                <button
+                  onClick={handleEditCards}
+                  className="text-gray-400 hover:text-gray-600 text-sm transition-colors"
+                >
                   Edit cards
                 </button>
               </div>

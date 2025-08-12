@@ -1,10 +1,22 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight, MapPin } from "lucide-react"
 
 /* address location */
 
-export default function JobFlowFour() {
-    const [location, setLocation] = useState("")
+export default function JobFlowFour({ onNext, onPrevious, formData, updateFormData }) {
+  const [location, setLocation] = useState(formData.location || "")
+
+  const handleLocationChange = (value) => {
+    setLocation(value)
+    updateFormData({ location: value })
+  }
+
+  const handleNext = () => {
+    updateFormData({ location })
+    onNext()
+  }
 
     return (
     <div className="min-h-screen bg-white p-6">
@@ -19,11 +31,11 @@ export default function JobFlowFour() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-6">Tell us more</h1>
-          
+
           {/* Progress Bar */}
           <div className="relative">
             <div className="w-full h-2 bg-gray-300 rounded-full">
-              <div className="w-5/8 h-2 bg-blue-600 rounded-full"></div>
+              <div className="w-[50%] h-2 bg-blue-600 rounded-full"></div> {/* Adjusted progress */}
             </div>
           </div>
         </div>
@@ -31,9 +43,7 @@ export default function JobFlowFour() {
         {/* Main Content Card */}
         <div className="border border-gray-300 rounded-2xl mb-8 bg-white shadow-sm">
           <div className="p-8">
-            <h2 className="text-lg font-medium text-black mb-6">
-              Where are you located?
-            </h2>
+            <h2 className="text-lg font-medium text-black mb-6">Where are you located?</h2>
 
             {/* Location Input */}
             <div className="relative">
@@ -44,7 +54,7 @@ export default function JobFlowFour() {
                 type="text"
                 placeholder=""
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => handleLocationChange(e.target.value)}
                 className="w-full h-12 pl-12 pr-4 rounded-full border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all text-lg"
               />
             </div>
@@ -53,12 +63,18 @@ export default function JobFlowFour() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all">
+          <button
+            onClick={onPrevious}
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
+          >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all">
+
+          <button
+            onClick={handleNext}
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
+          >
             Next
             <ChevronRight className="w-4 h-4" />
           </button>

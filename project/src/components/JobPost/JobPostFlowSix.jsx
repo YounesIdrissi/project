@@ -1,25 +1,37 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight, Upload, X } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight, Upload, X } from "lucide-react"
 
 /* upload photos and videos */
 
-export default function JobFlowSix() {
-    const [uploadedFiles, setUploadedFiles] = useState([])
+export default function JobFlowSix({ onNext, onPrevious, formData, updateFormData }) {
+    const [uploadedFiles, setUploadedFiles] = useState(formData.uploadedFiles || [])
 
-    const handleFileUpload = (event) => {
-        const files = Array.from(event.target.files)
-        const newFiles = files.map(file => ({
-        id: Date.now() + Math.random(),
-        file,
-        url: URL.createObjectURL(file),
-        name: file.name
-        }))
-        setUploadedFiles(prev => [...prev, ...newFiles])
-    }
+  const handleFileUpload = (event) => {
+    const files = Array.from(event.target.files)
+    const newFiles = files.map((file) => ({
+      id: Date.now() + Math.random(),
+      file,
+      url: URL.createObjectURL(file),
+      name: file.name,
+    }))
+    const updatedFiles = [...uploadedFiles, ...newFiles]
+    setUploadedFiles(updatedFiles)
+    updateFormData({ uploadedFiles: updatedFiles })
+  }
 
-    const removeFile = (fileId) => {
-            setUploadedFiles(prev => prev.filter(file => file.id !== fileId))
-    }
+  const removeFile = (fileId) => {
+    const updatedFiles = uploadedFiles.filter((file) => file.id !== fileId)
+    setUploadedFiles(updatedFiles)
+    updateFormData({ uploadedFiles: updatedFiles })
+  }
+
+  const handleNext = () => {
+    updateFormData({ uploadedFiles })
+    onNext()
+  }
+
     return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-4xl mx-auto">
@@ -33,11 +45,11 @@ export default function JobFlowSix() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-6">Share anything visual</h1>
-          
+
           {/* Progress Bar */}
           <div className="relative">
             <div className="w-full h-2 bg-gray-300 rounded-full">
-              <div className="w-7/8 h-2 bg-blue-600 rounded-full"></div>
+              <div className="w-[75%] h-2 bg-blue-600 rounded-full"></div> {/* Adjusted progress */}
             </div>
           </div>
         </div>
@@ -45,20 +57,12 @@ export default function JobFlowSix() {
         {/* Main Content Card */}
         <div className="border border-gray-300 rounded-2xl mb-8 bg-white shadow-sm">
           <div className="p-8">
-            <h2 className="text-lg font-medium text-black mb-8">
-              Upload photos and videos
-            </h2>
+            <h2 className="text-lg font-medium text-black mb-8">Upload photos and videos</h2>
 
             {/* Upload Area */}
             <div className="mb-6">
               <label className="block">
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*,video/*"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
+                <input type="file" multiple accept="image/*,video/*" onChange={handleFileUpload} className="hidden" />
                 <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center hover:border-blue-600 transition-colors cursor-pointer">
                   <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                   <p className="text-gray-600 mb-2">Click to upload photos and videos</p>
@@ -90,11 +94,7 @@ export default function JobFlowSix() {
               {/* Uploaded Files */}
               {uploadedFiles.map((file) => (
                 <div key={file.id} className="relative rounded-2xl overflow-hidden">
-                  <img
-                    src={file.url || "/placeholder.svg"}
-                    alt={file.name}
-                    className="w-full h-64 object-cover"
-                  />
+                  <img src={file.url || "/placeholder.svg"} alt={file.name} className="w-full h-64 object-cover" />
                   <button
                     onClick={() => removeFile(file.id)}
                     className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
@@ -109,12 +109,18 @@ export default function JobFlowSix() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all">
+          <button
+            onClick={onPrevious}
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
+          >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all">
+
+          <button
+            onClick={handleNext}
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
+          >
             Next
             <ChevronRight className="w-4 h-4" />
           </button>

@@ -5,8 +5,18 @@ import { Star, Bell, User, MapPin, Clock, Filter } from "lucide-react"
 
 /* service type selection */
 
-export default function CDefaultDash() {
+export default function CDefaultDash({ onSettings, onApplyJob }) {
   const [activeTab, setActiveTab] = useState("Applied")
+
+  const handleSettings = () => {
+    onSettings()
+  }
+
+  const handleApplyJob = (jobId) => {
+    // TODO: Submit job application to backend
+    console.log("Applied to job:", jobId)
+    onApplyJob(jobId)
+  }
 
   const availableJobs = [
     {
@@ -90,7 +100,9 @@ export default function CDefaultDash() {
               <Bell className="w-6 h-6 text-gray-600" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-600 rounded-full"></div>
             </div>
-            <User className="w-6 h-6 text-gray-600" />
+            <button onClick={handleSettings} className="hover:bg-gray-100 p-1 rounded-full transition-colors">
+              <User className="w-6 h-6 text-gray-600" />
+            </button>
           </div>
         </div>
       </div>
@@ -147,7 +159,12 @@ export default function CDefaultDash() {
                     {job.applied ? (
                       <button className="bg-blue-100 text-blue-600 px-6 py-2 rounded-lg cursor-default">Applied</button>
                     ) : (
-                      <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Apply</button>
+                      <button
+                        onClick={() => handleApplyJob(job.id)}
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                      >
+                        Apply
+                      </button>
                     )}
                   </div>
                 </div>

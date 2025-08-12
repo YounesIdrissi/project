@@ -1,30 +1,41 @@
-import { useState, useEffect } from 'react'
-import { Star, Leaf } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, Leaf } from "lucide-react"
 
 /* universal login for contractors and home (owner) clients */
 
-export default function UserLogin() {
+export default function UserLogin({ onLogin, onSignUp, onBack }) {
     const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleLogin = () => {
-    console.log("Login Attempt:", { email, password });
-    alert("Login button clicked! Data logged to console.");
-    // In a real application, you would handle authentication here.
+    if (!email || !password) {
+      alert("Please fill in all fields")
+      return
+    }
+
+    // TODO: Integrate with backend authentication service
+    // For now, simulate successful login
+    console.log("Login Attempt:", { email, password })
+    onLogin({ email, password })
   }
 
   const handleForgotPassword = () => {
-    alert("Forgot password clicked!");
+    // TODO: Implement password reset flow
+    alert("Password reset functionality would be implemented here")
   }
 
   const handleSocialLogin = (provider) => {
-    alert(`Logging in with ${provider}!`);
+    // TODO: Integrate with OAuth providers (Google, Facebook)
+    console.log(`Social login with ${provider}`)
+    onLogin({ provider, email: `user@${provider.toLowerCase()}.com` })
   }
 
   const handleSignUp = () => {
-    alert("Sign up clicked! Navigating to sign-up page.");
-    // In a real application, you would navigate to the sign-up flow here.
+    onSignUp()
   }
+
     return (
     <div className="min-h-screen bg-white p-6 flex items-center justify-center">
       <div className="max-w-md w-full mx-auto">
@@ -103,6 +114,12 @@ export default function UserLogin() {
               Sign up
             </button>
           </p>
+
+          {onBack && (
+            <button onClick={onBack} className="mt-4 text-sm text-gray-500 hover:text-gray-700 transition-colors">
+              ← Back to home
+            </button>
+          )}
         </div>
       </div>
     </div>

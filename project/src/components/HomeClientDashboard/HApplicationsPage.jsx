@@ -1,11 +1,10 @@
 "use client"
 
 import { Star, Bell, User, ArrowLeft } from "lucide-react"
-import { useState, useEffect } from 'react'
 
 /* service type selection */
 
-export default function HApplicationsPage() {
+export default function HApplicationsPage({ onBack, onAcceptContractor }) {
     const applicants = [
     {
       id: 1,
@@ -45,13 +44,16 @@ export default function HApplicationsPage() {
     },
   ]
 
-  const handleAccept = (applicantName) => {
-    alert(`Accepted ${applicantName} for the Kitchen Renovation job`)
+  const handleAccept = (applicant) => {
+    // TODO: Update job status in backend and notify contractor
+    console.log(`Accepted ${applicant.name} for the Kitchen Renovation job`)
+    onAcceptContractor(applicant.id)
   }
 
   const handleGoBack = () => {
-    alert("Going back to dashboard")
+    onBack()
   }
+
     return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
@@ -66,7 +68,10 @@ export default function HApplicationsPage() {
       </div>
 
       {/* Navigation */}
-      <button onClick={handleGoBack} className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-6">
+      <button
+        onClick={handleGoBack}
+        className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-6 transition-colors"
+      >
         <ArrowLeft className="w-4 h-4" />
         Previous
       </button>
@@ -104,7 +109,7 @@ export default function HApplicationsPage() {
             <div className="flex items-center justify-between">
               <span className="text-gray-600">{applicant.experience} years experience</span>
               <button
-                onClick={() => handleAccept(applicant.name)}
+                onClick={() => handleAccept(applicant)}
                 className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Accept

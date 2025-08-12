@@ -1,24 +1,32 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 /* Home (owner) client name email password */
 
-export default function HsignUpOne() {
+export default function HsignUpOne({ onNext, onBack }) {
     const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleNextClick = () => {
-    console.log("Client Sign-up Data:", { firstName, lastName, email, password });
-    alert("Next button clicked! Client data logged to console.");
-    // In a real application, you would handle form submission/navigation here.
+    if (!firstName || !lastName || !email || !password) {
+      alert("Please fill in all fields")
+      return
+    }
+
+    // TODO: Add form validation (email format, password strength)
+    const formData = { firstName, lastName, email, password }
+    console.log("Client Sign-up Data:", formData)
+    onNext(formData)
   }
 
   const handlePreviousClick = () => {
-    alert("Previous button clicked!");
-    // In a real application, you would handle navigation back here.
+    onBack()
   }
+
     return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-4xl mx-auto">
@@ -82,16 +90,15 @@ export default function HsignUpOne() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button 
+          <button
             onClick={handlePreviousClick}
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
-            disabled={true}
-          > {/* Disabled on the first step */}
+          >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button 
+
+          <button
             onClick={handleNextClick}
             className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
           >

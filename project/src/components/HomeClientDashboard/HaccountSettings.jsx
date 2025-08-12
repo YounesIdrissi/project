@@ -1,9 +1,25 @@
-import { useState, useEffect } from 'react'
+"use client"
+
 import { ArrowLeft, Star, User } from "lucide-react"
 
 /* service type selection */
 
-export default function HaccountSettings() {
+export default function HaccountSettings({ onBack, onSignOut }) {
+  const handleGoBack = () => {
+    onBack()
+  }
+
+  const handleSignOut = () => {
+    // TODO: Clear user session and authentication tokens
+    console.log("User signing out")
+    onSignOut()
+  }
+
+  const handleEditCards = () => {
+    // TODO: Navigate to payment method editing flow
+    alert("Edit payment cards functionality would be implemented here")
+  }
+
     return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
@@ -23,7 +39,10 @@ export default function HaccountSettings() {
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
             {/* Go Back Link */}
-            <button className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-8 transition-colors">
+            <button
+              onClick={handleGoBack}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-8 transition-colors"
+            >
               <ArrowLeft className="w-4 h-4" />
               <span>Go back</span>
             </button>
@@ -75,14 +94,22 @@ export default function HaccountSettings() {
                     <span className="text-gray-900">VISA 1234</span>
                   </div>
                   <div className="flex justify-end">
-                    <button className="text-blue-600 hover:text-blue-700 text-sm transition-colors">Edit cards</button>
+                    <button
+                      onClick={handleEditCards}
+                      className="text-blue-600 hover:text-blue-700 text-sm transition-colors"
+                    >
+                      Edit cards
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="flex justify-end">
-              <button className="px-6 py-2 border border-red-300 text-red-600 rounded-full hover:bg-red-50 transition-colors">
+              <button
+                onClick={handleSignOut}
+                className="px-6 py-2 border border-red-300 text-red-600 rounded-full hover:bg-red-50 transition-colors"
+              >
                 Sign Out
               </button>
             </div>

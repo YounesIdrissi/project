@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react'
-import { Star, User, HardHat } from 'lucide-react'
+"use client"
+
+import { Star, User, HardHat } from "lucide-react"
 
 /* identify user type */
 
-export default function Identify() {
+export default function Identify({ onSelectClient, onSelectContractor, onLogin }) {
     const handleClientClick = () => {
-    alert("Client account type selected! Navigating to client sign-up.");
-    // In a real application, you would navigate to the client sign-up flow here.
+    onSelectClient()
   }
 
   const handleContractorClick = () => {
-    alert("Contractor account type selected! Navigating to contractor onboarding.");
-    // In a real application, you would navigate to the contractor onboarding flow here.
+    onSelectContractor()
   }
+
     return (
     <div className="min-h-screen bg-white p-6 flex flex-col items-center justify-center">
       <div className="max-w-4xl mx-auto text-center">
@@ -58,6 +58,15 @@ export default function Identify() {
               Find quality leads, grow your business, and get paid for great work.
             </p>
           </button>
+        </div>
+
+        <div className="mt-8">
+          <p className="text-sm text-gray-600">
+            Already have an account?{" "}
+            <button onClick={onLogin} className="text-blue-600 hover:underline font-medium">
+              Log in
+            </button>
+          </p>
         </div>
       </div>
     </div>

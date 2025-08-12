@@ -1,10 +1,22 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+"use client"
+
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 /* schedule time and date */
 
-export default function JobFlowSeven() {
-    const [preferredDateTime, setPreferredDateTime] = useState("")
+export default function JobFlowSeven({ onNext, onPrevious, formData, updateFormData }) {
+    const [preferredDateTime, setPreferredDateTime] = useState(formData.preferredDateTime || "")
+
+  const handleDateTimeChange = (value) => {
+    setPreferredDateTime(value)
+    updateFormData({ preferredDateTime: value })
+  }
+
+  const handleNext = () => {
+    updateFormData({ preferredDateTime })
+    onNext()
+  }
 
     return (
     <div className="min-h-screen bg-white p-6">
@@ -19,11 +31,11 @@ export default function JobFlowSeven() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-6">Set your time</h1>
-          
+
           {/* Progress Bar - 100% Complete */}
           <div className="relative">
             <div className="w-full h-2 bg-gray-300 rounded-full">
-              <div className="w-full h-2 bg-blue-600 rounded-full"></div>
+              <div className="w-[87.5%] h-2 bg-blue-600 rounded-full"></div> {/* Adjusted progress */}
             </div>
           </div>
         </div>
@@ -31,9 +43,7 @@ export default function JobFlowSeven() {
         {/* Main Content Card */}
         <div className="border border-gray-300 rounded-2xl mb-8 bg-white shadow-sm">
           <div className="p-8">
-            <h2 className="text-lg font-medium text-black mb-6">
-              Preferred date and time
-            </h2>
+            <h2 className="text-lg font-medium text-black mb-6">Preferred date and time</h2>
 
             {/* Date and Time Input */}
             <div className="relative">
@@ -41,7 +51,7 @@ export default function JobFlowSeven() {
                 type="text"
                 placeholder="e.g., Aug 1, anytime between 9am-3pm"
                 value={preferredDateTime}
-                onChange={(e) => setPreferredDateTime(e.target.value)}
+                onChange={(e) => handleDateTimeChange(e.target.value)}
                 className="w-full h-12 px-4 rounded-full border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all text-lg placeholder-gray-400"
               />
             </div>
@@ -50,13 +60,19 @@ export default function JobFlowSeven() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all">
+          <button
+            onClick={onPrevious}
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
+          >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all">
-            Submit
+
+          <button
+            onClick={handleNext}
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
+          >
+            Submit Job
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>

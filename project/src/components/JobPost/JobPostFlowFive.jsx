@@ -1,24 +1,36 @@
-import { useState, useEffect } from 'react'
-import { Star, ChevronLeft, ChevronRight, Home, Building, Building2 } from 'lucide-react'
+"use client"
 
+import { useState } from "react"
+import { Star, ChevronLeft, ChevronRight, Home, Building, Building2 } from "lucide-react"
 
 /* property type selection */
 
-export default function JobFlowFive() {
+export default function JobFlowFive({ onNext, onPrevious, formData, updateFormData }) {
 
-    const [selectedPropertyType, setSelectedPropertyType] = useState("")
-    const [otherPropertyType, setOtherPropertyType] = useState("")
+  const [selectedPropertyType, setSelectedPropertyType] = useState(formData.selectedPropertyType || "")
+  const [otherPropertyType, setOtherPropertyType] = useState(formData.otherPropertyType || "")
 
-    const propertyTypes = [
-        { id: "house", label: "House", icon: Home },
-        { id: "apartment", label: "Apartment", icon: Building },
-        { id: "condo", label: "Condo", icon: Building2 },
-        { id: "townhome", label: "Townhome", icon: Building },
-    ]
+  const propertyTypes = [
+    { id: "house", label: "House", icon: Home },
+    { id: "apartment", label: "Apartment", icon: Building },
+    { id: "condo", label: "Condo", icon: Building2 },
+    { id: "townhome", label: "Townhome", icon: Building },
+  ]
 
-    const selectPropertyType = (propertyId) => {
-        setSelectedPropertyType(propertyId)
-    }
+  const selectPropertyType = (propertyId) => {
+    setSelectedPropertyType(propertyId)
+    updateFormData({ selectedPropertyType: propertyId })
+  }
+
+  const handleOtherChange = (value) => {
+    setOtherPropertyType(value)
+    updateFormData({ otherPropertyType: value })
+  }
+
+  const handleNext = () => {
+    updateFormData({ selectedPropertyType, otherPropertyType })
+    onNext()
+  }
 
     return (
     <div className="min-h-screen bg-white p-6">
@@ -33,11 +45,11 @@ export default function JobFlowFive() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-6">Tell us more</h1>
-          
+
           {/* Progress Bar */}
           <div className="relative">
             <div className="w-full h-2 bg-gray-300 rounded-full">
-              <div className="w-3/4 h-2 bg-blue-600 rounded-full"></div>
+              <div className="w-[62.5%] h-2 bg-blue-600 rounded-full"></div> {/* Adjusted progress */}
             </div>
           </div>
         </div>
@@ -45,32 +57,24 @@ export default function JobFlowFive() {
         {/* Main Content Card */}
         <div className="border border-gray-300 rounded-2xl mb-8 bg-white shadow-sm">
           <div className="p-8">
-            <h2 className="text-lg font-medium text-black mb-8">
-              Tell us about your space
-            </h2>
+            <h2 className="text-lg font-medium text-black mb-8">Tell us about your space</h2>
 
             {/* Property Type Options Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               {propertyTypes.map((property) => {
                 const Icon = property.icon
                 const isSelected = selectedPropertyType === property.id
-                
+
                 return (
                   <button
                     key={property.id}
                     onClick={() => selectPropertyType(property.id)}
                     className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all ${
-                      isSelected
-                        ? "border-blue-600 bg-blue-50"
-                        : "border-gray-300 hover:border-gray-400"
+                      isSelected ? "border-blue-600 bg-blue-50" : "border-gray-300 hover:border-gray-400"
                     }`}
                   >
-                    <Icon className={`w-8 h-8 mb-3 ${
-                      isSelected ? "text-blue-600" : "text-black"
-                    }`} />
-                    <span className={`text-sm font-medium ${
-                      isSelected ? "text-blue-600" : "text-black"
-                    }`}>
+                    <Icon className={`w-8 h-8 mb-3 ${isSelected ? "text-blue-600" : "text-black"}`} />
+                    <span className={`text-sm font-medium ${isSelected ? "text-blue-600" : "text-black"}`}>
                       {property.label}
                     </span>
                   </button>
@@ -85,7 +89,7 @@ export default function JobFlowFive() {
                 type="text"
                 placeholder=""
                 value={otherPropertyType}
-                onChange={(e) => setOtherPropertyType(e.target.value)}
+                onChange={(e) => handleOtherChange(e.target.value)}
                 className="w-full h-12 px-4 rounded-full border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-20 outline-none transition-all"
               />
             </div>
@@ -94,12 +98,18 @@ export default function JobFlowFive() {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between items-center">
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all">
+          <button
+            onClick={onPrevious}
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-500 hover:border-gray-400 hover:text-black transition-all"
+          >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
-          
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all">
+
+          <button
+            onClick={handleNext}
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all"
+          >
             Next
             <ChevronRight className="w-4 h-4" />
           </button>
