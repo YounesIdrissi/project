@@ -1,99 +1,266 @@
-import { useState, useEffect } from 'react'
+"use client"
+
+import { useState } from "react"
+import { Star, Bell, User, MapPin, Clock, Filter } from "lucide-react"
 
 /* service type selection */
 
-function CDefaultDash() {
+export default function CDefaultDash() {
+  const [activeTab, setActiveTab] = useState("Applied")
+
+  const availableJobs = [
+    {
+      id: 1,
+      title: "Kitchen Renovation",
+      location: "Philadelphia, PA 19104",
+      timeAgo: "2 hours ago",
+      price: "$5,000",
+      distance: "2.5 miles away",
+      description: "Complete kitchen remodel including cabinets, countertops, and appliances",
+      urgent: true,
+      image: "/placeholder.svg?height=200&width=300",
+      applied: true,
+    },
+    {
+      id: 2,
+      title: "Residential Plumbing",
+      location: "Fishtown, PA 19125",
+      timeAgo: "5 hours ago",
+      price: "$650",
+      distance: "5.2 miles away",
+      description: "Repair and addressing leaks in the kitchen sink",
+      urgent: false,
+      timeframe: "This week",
+      image: "/placeholder.svg?height=200&width=300",
+      applied: true,
+    },
+    {
+      id: 3,
+      title: "Water Damage Restoration",
+      location: "Bella Vista, PA 19147",
+      timeAgo: "6 hours ago",
+      price: "$3,000",
+      distance: "2.5 miles away",
+      description: "Restore drywall and flooring in living room after water damage from pipe leak",
+      urgent: true,
+      image: "/placeholder.svg?height=200&width=300",
+      applied: false,
+    },
+  ]
+
+  const appliedJobs = [
+    {
+      id: 1,
+      title: "Kitchen",
+      status: "Pending",
+      price: "$5,000",
+    },
+    {
+      id: 2,
+      title: "Plumbing",
+      status: "Pending",
+      price: "$650",
+    },
+  ]
+
+  const confirmedJobs = [
+    {
+      id: 1,
+      title: "Kitchen",
+      status: "In Progress",
+      price: "$5,000",
+      scheduledWith: "Linda Oaks",
+      scheduledDate: "August 14 at 5:30pm",
+    },
+  ]
+
     return (
-    <div className="w-[1280px] h-[1343px] relative bg-white overflow-hidden">
-    <img className="w-14 h-14 left-[64px] top-[28px] absolute" src="https://placehold.co/55x57" />
-    <div className="w-14 h-16 left-[1184px] top-[25px] absolute">
-        <img className="w-14 h-16 left-0 top-0 absolute" src="https://placehold.co/57x63" />
-    </div>
-    <div className="left-[182px] top-[158px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Available Jobs</div>
-    <div className="left-[939px] top-[164px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Applied</div>
-    <div className="left-[1012px] top-[488px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Statements</div>
-    <div className="left-[923px] top-[562px] absolute justify-start text-black text-lg font-normal font-['Inter']">This Month</div>
-    <div className="left-[923px] top-[643px] absolute justify-start text-black text-lg font-normal font-['Inter']">Last Month</div>
-    <div className="left-[931px] top-[228px] absolute justify-start text-black text-lg font-normal font-['Inter']">Plumbing</div>
-    <div className="left-[931px] top-[268px] absolute justify-start text-black text-lg font-normal font-['Inter']">Repair</div>
-    <div className="left-[931px] top-[308px] absolute justify-start text-black text-lg font-normal font-['Inter']">Repair</div>
-    <div className="left-[931px] top-[347px] absolute justify-start text-black text-lg font-normal font-['Inter']">Plumbing</div>
-    <div className="left-[1087px] top-[164px] absolute justify-start text-black text-2xl font-normal font-['Inter']">Confirmed</div>
-    <div className="left-[182px] top-[190px] absolute justify-start text-neutral-500 text-base font-normal font-['Inter']">Find your next project</div>
-    <div className="left-[923px] top-[595px] absolute justify-start text-neutral-500 text-sm font-normal font-['Inter']">Completed Jobs: 3</div>
-    <div className="left-[923px] top-[676px] absolute justify-start text-neutral-500 text-sm font-normal font-['Inter']">Completed Jobs: 5</div>
-    <div className="left-[1184px] top-[228px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$650</div>
-    <div className="left-[1184px] top-[268px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$250</div>
-    <div className="left-[1184px] top-[308px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$100</div>
-    <div className="left-[1184px] top-[347px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$400</div>
-    <div className="left-[1171px] top-[562px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$7,700</div>
-    <div className="left-[1159px] top-[643px] absolute justify-start text-neutral-500 text-lg font-normal font-['Inter']">$10,390</div>
-    <div className="w-32 h-5 left-[669px] top-[190px] absolute rounded-[20px] outline outline-1 outline-offset-[-1px] outline-zinc-300 overflow-hidden">
-        <div className="left-[55px] top-[4px] absolute justify-start text-neutral-500 text-[10px] font-normal font-['Inter']">Filter </div>
-        <img className="w-8 h-2.5 left-[27px] top-[5px] absolute" src="https://placehold.co/33x10" />
-    </div>
-    <div className="w-[633px] h-[471px] left-[171px] top-[222px] absolute overflow-hidden">
-        <div className="w-20 h-7 left-[527px] top-[97px] absolute bg-sky-600 rounded-2xl overflow-hidden">
-            <div className="left-[16px] top-[5px] absolute justify-start text-white text-base font-normal font-['Inter']">Apply</div>
+      <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              <Star className="w-6 h-6 text-white fill-white" />
+            </div>
+            <h1 className="text-2xl font-semibold text-gray-900">Welcome, Sean</h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Bell className="w-6 h-6 text-gray-600" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-600 rounded-full"></div>
+            </div>
+            <User className="w-6 h-6 text-gray-600" />
+          </div>
         </div>
-        <div className="left-[26px] top-[21px] absolute justify-start text-black text-lg font-normal font-['Inter']">Kitchen Renovation</div>
-        <div className="left-[37px] top-[47px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">Beverly Hills, CA 90210</div>
-        <div className="left-[44px] top-[110px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">ASAP</div>
-        <div className="left-[540px] top-[28px] absolute justify-start text-sky-600 text-lg font-bold font-['Inter']">$5,000</div>
-        <div className="left-[26px] top-[77px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">Complete kitchen remodel including cabinets, countertops, and appliances</div>
-        <div className="left-[203px] top-[47px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">2 hours ago</div>
-        <div className="left-[517px] top-[51px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">2.5 miles away</div>
-        <img className="w-9 h-3 left-[11px] top-[50px] absolute" src="https://placehold.co/38x12" />
-        <img className="w-10 h-3 left-[171px] top-[50px] absolute" src="https://placehold.co/39x12" />
-        <img className="w-11 h-3.5 left-[11px] top-[110px] absolute" src="https://placehold.co/45x15" />
-        <div className="w-[575px] h-72 left-[26px] top-[142px] absolute rounded-2xl border border-zinc-400" />
-        <div className="left-[218px] top-[284px] absolute justify-start text-neutral-500 text-base font-normal font-['Inter']">[Job Preview Image]</div>
-        <div className="w-[633px] h-[469px] left-0 top-[2px] absolute rounded-[20px] border border-zinc-300" />
-    </div>
-    <div className="w-40 h-7 left-[1087px] top-[734px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[16px] top-[5px] absolute justify-start text-sky-600 text-base font-normal font-['Inter']">View Statements</div>
-    </div>
-    <div className="w-32 h-7 left-[1120px] top-[404px] absolute rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[16px] top-[5px] absolute justify-start text-sky-600 text-base font-normal font-['Inter']">View Details</div>
-    </div>
-    <div className="w-80 h-0 left-[911.50px] top-[716.50px] absolute outline outline-1 outline-offset-[-0.50px] outline-zinc-300" />
-    <div className="w-80 h-0 left-[911.50px] top-[386.50px] absolute outline outline-1 outline-offset-[-0.50px] outline-zinc-300" />
-    <div className="left-[171px] top-[88px] absolute justify-start text-black text-4xl font-normal font-['Inter']">Welcome, Sean</div>
-    <div className="w-[633px] h-[471px] left-[171px] top-[739px] absolute overflow-hidden">
-        <div className="w-20 h-7 left-[527px] top-[97px] absolute bg-blue-400/40 rounded-2xl overflow-hidden">
-            <div className="left-[9px] top-[5px] absolute justify-start text-white text-base font-normal font-['Inter']">Applied</div>
+      </div>
+
+      <div className="flex gap-6 p-6">
+        {/* Left Side - Available Jobs */}
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Available Jobs</h2>
+              <p className="text-gray-500">Find your next project</p>
+            </div>
+            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+              <Filter className="w-4 h-4" />
+              Filter
+            </button>
+          </div>
+
+          <div className="space-y-6">
+            {availableJobs.map((job) => (
+              <div key={job.id} className="bg-white rounded-xl border border-gray-200 p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{job.title}</h3>
+                    <div className="flex items-center gap-4 text-gray-500 text-sm mb-2">
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-4 h-4" />
+                        {job.location}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {job.timeAgo}
+                      </div>
+                    </div>
+                    <p className="text-gray-700 mb-4">{job.description}</p>
+                    <div className="flex items-center gap-4">
+                      {job.urgent && (
+                        <div className="flex items-center gap-2">
+                          <input type="checkbox" className="rounded" />
+                          <span className="text-sm text-gray-600">ASAP</span>
+                        </div>
+                      )}
+                      {job.timeframe && (
+                        <div className="flex items-center gap-2">
+                          <input type="checkbox" className="rounded" />
+                          <span className="text-sm text-gray-600">{job.timeframe}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-blue-600 mb-1">{job.price}</div>
+                    <div className="text-sm text-gray-500 mb-4">{job.distance}</div>
+                    {job.applied ? (
+                      <button className="bg-blue-100 text-blue-600 px-6 py-2 rounded-lg cursor-default">Applied</button>
+                    ) : (
+                      <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Apply</button>
+                    )}
+                  </div>
+                </div>
+                <div className="rounded-lg overflow-hidden">
+                  <img src={job.image || "/placeholder.svg"} alt={job.title} className="w-full h-48 object-cover" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="left-[26px] top-[21px] absolute justify-start text-black text-lg font-normal font-['Inter']">Residential Plumbing</div>
-        <div className="left-[39px] top-[49px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">West Hollywood, CA 90046</div>
-        <div className="left-[44px] top-[110px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">ASAP</div>
-        <div className="left-[556px] top-[28px] absolute justify-start text-sky-600 text-lg font-bold font-['Inter']">$650</div>
-        <div className="left-[26px] top-[77px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">Repair and addressing leaks in the kitchen sink</div>
-        <div className="left-[238px] top-[50px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">5 hours ago</div>
-        <div className="left-[517px] top-[51px] absolute justify-start text-neutral-500 text-xs font-normal font-['Inter']">8.3 miles away</div>
-        <img className="w-9 h-3 left-[11px] top-[50px] absolute" src="https://placehold.co/38x12" />
-        <img className="w-10 h-3 left-[203px] top-[51px] absolute" src="https://placehold.co/39x12" />
-        <img className="w-11 h-3.5 left-[11px] top-[110px] absolute" src="https://placehold.co/45x15" />
-        <div className="w-[575px] h-72 left-[26px] top-[142px] absolute rounded-2xl border border-zinc-400" />
-        <div className="left-[218px] top-[284px] absolute justify-start text-neutral-500 text-base font-normal font-['Inter']">[Job Preview Image]</div>
-        <div className="w-[633px] h-[469px] left-0 top-[2px] absolute rounded-[20px] border border-zinc-300" />
+
+        {/* Right Side - Applied/Confirmed and Statements */}
+        <div className="w-80">
+          {/* Applied/Confirmed Tabs */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+            <div className="flex border-b border-gray-200 mb-4">
+              <button
+                onClick={() => setActiveTab("Applied")}
+                className={`px-4 py-2 font-medium ${
+                  activeTab === "Applied" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"
+                }`}
+              >
+                Applied
+              </button>
+              <button
+                onClick={() => setActiveTab("Confirmed")}
+                className={`px-4 py-2 font-medium ${
+                  activeTab === "Confirmed" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"
+                }`}
+              >
+                Confirmed
+              </button>
+            </div>
+
+            {activeTab === "Applied" && (
+              <div className="space-y-4">
+                {appliedJobs.map((job) => (
+                  <div key={job.id} className="flex justify-between items-center">
+                    <div>
+                      <div className="font-medium text-gray-900">{job.title}</div>
+                      <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                        {job.status}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-semibold text-gray-900">{job.price}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {activeTab === "Confirmed" && (
+              <div className="space-y-4">
+                {confirmedJobs.map((job) => (
+                  <div key={job.id} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="font-medium text-gray-900">{job.title}</div>
+                        <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                          {job.status}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold text-gray-900">{job.price}</div>
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      Scheduled with {job.scheduledWith} on {job.scheduledDate}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
+              <div className="flex items-center gap-2 text-gray-500">
+                <span>&lt;</span>
+                <span>1/1</span>
+                <span>&gt;</span>
+              </div>
+              <button className="text-blue-600 hover:text-blue-700">View Details</button>
+            </div>
+          </div>
+
+          {/* Statements */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Statements</h3>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="font-medium text-gray-900">This Month</div>
+                  <div className="text-sm text-gray-500">Completed Jobs: 3</div>
+                </div>
+                <div className="text-lg font-semibold text-gray-900">$7,700</div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="font-medium text-gray-900">Last Month</div>
+                  <div className="text-sm text-gray-500">Completed Jobs: 5</div>
+                </div>
+                <div className="text-lg font-semibold text-gray-900">$10,390</div>
+              </div>
+            </div>
+
+            <button className="w-full mt-6 text-blue-600 border border-blue-600 rounded-lg py-2 hover:bg-blue-50">
+              View Statements
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="w-96 h-64 left-[897px] top-[534px] absolute rounded-[20px] border border-zinc-300" />
-    <div className="w-96 h-64 left-[897px] top-[204px] absolute rounded-[20px] border border-zinc-300" />
-    <div className="w-16 h-5 left-[1027px] top-[228px] absolute bg-blue-400/40 rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[9px] top-[3px] absolute justify-start text-sky-600 text-xs font-normal font-['Inter']">Pending</div>
-    </div>
-    <div className="w-16 h-5 left-[1027px] top-[268px] absolute bg-blue-400/40 rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[9px] top-[3px] absolute justify-start text-sky-600 text-xs font-normal font-['Inter']">Pending</div>
-    </div>
-    <div className="w-16 h-5 left-[1027px] top-[308px] absolute bg-blue-400/40 rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[9px] top-[3px] absolute justify-start text-sky-600 text-xs font-normal font-['Inter']">Pending</div>
-    </div>
-    <div className="w-16 h-5 left-[1027px] top-[347px] absolute bg-blue-400/40 rounded-2xl outline outline-1 outline-offset-[-1px] outline-sky-600 overflow-hidden">
-        <div className="left-[9px] top-[3px] absolute justify-start text-sky-600 text-xs font-normal font-['Inter']">Pending</div>
-    </div>
-    <div className="w-24 h-0 left-[936.50px] top-[204px] absolute outline outline-[3px] outline-offset-[-1.50px] outline-sky-600" />
-</div>
     )
 }
-
-export default CDefaultDash

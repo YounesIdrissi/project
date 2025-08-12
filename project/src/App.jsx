@@ -30,7 +30,7 @@ import HJobComplete from './components/HomeClientDashboard/HJobComplete';
 import HaccountSettings from './components/HomeClientDashboard/HaccountSettings';
 
 import CDefaultDash from './components/ContractorDashboard/CDefaultDash';
-import CSettings from './components/ContractorDashboard/CSettings';
+import CaccountSettings from './components/ContractorDashboard/CaccountSettings';
 
 import UniversalLanding from './components/LandingPage/UniversalLanding';
 
@@ -69,7 +69,7 @@ function App() {
     <HaccountSettings /> {}
 
     <CDefaultDash /> {}
-    <CSettings /> {}
+    <CaccountSettings /> {}
 
     <UniversalLanding /> {}
 
