@@ -76,7 +76,7 @@ export default function JobFlowSix({ onNext, onPrevious, formData, updateFormDat
               {/* Example Image 1 */}
               <div className="relative rounded-2xl overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=300&width=400"
+                  src="https://westoba.com/wp-content/uploads/2021/05/daniela-gisin-krumsick-UqNEbyRQ660-unsplash-scaled.jpg?height=300&width=400"
                   alt="Kitchen renovation example"
                   className="w-full h-64 object-cover"
                 />
@@ -85,7 +85,7 @@ export default function JobFlowSix({ onNext, onPrevious, formData, updateFormDat
               {/* Example Image 2 */}
               <div className="relative rounded-2xl overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=300&width=400"
+                  src="https://all-nuconstruction.com/wp-content/uploads/2021/09/Key-Elements-to-Consider-When-Planning-for-a-Bathroom-Renovation.jpeg?height=300&width=400"
                   alt="Bathroom interior example"
                   className="w-full h-64 object-cover"
                 />

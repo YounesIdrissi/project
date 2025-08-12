@@ -83,8 +83,8 @@ export default function UniversalLanding({ onLogin, onSignUp }) {
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between mt-12 md:mt-0">
           {/* Left Content */}
           <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-              We provide home service jobs to those who want to do the job
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+              Home service work for those who do the job.
             </h1>
             <button
               onClick={onSignUp}
@@ -96,7 +96,7 @@ export default function UniversalLanding({ onLogin, onSignUp }) {
           {/* Right Image */}
           <div className="md:w-1/2 flex justify-center md:justify-end">
             <img
-              src="/placeholder.svg?height=400&width=600"
+              src="https://images.unsplash.com/photo-1672627170267-fca17bb54156?q=80&w=1726&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?height=400&width=600"
               alt="House under construction"
               className="w-full max-w-xl rounded-lg shadow-xl"
             />
@@ -194,19 +194,19 @@ export default function UniversalLanding({ onLogin, onSignUp }) {
       </section>
       {/* Mid-page Hero/Banner */}
       <section className="relative bg-blue-600 py-16 md:py-24 text-white overflow-hidden">
-        <img
-          src="/placeholder.svg?height=400&width=1200"
+        <img 
+          src="https://www.icertified.com.au/news/wp-content/uploads/2022/03/victor-meza-ZAaUcbDdkQU-unsplash-scaled.jpg?height=400&width=1200"
           alt="Construction workers on roof"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
         <div className="relative container mx-auto px-6 flex flex-col md:flex-row items-center justify-between z-10">
-          <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
+          <div className="md:w-1/3 text-center md:text-left mb-8 md:mb-0">
             <p className="text-3xl md:text-4xl font-bold leading-tight">
               Job Berry is the only contractor platform that guarantees leads, protects payments, and helps both
               contractors and homeowners build trust.
             </p>
           </div>
-          <div className="md:w-1/2 text-center md:text-right">
+          <div className="md:w-2/5 text-center md:text-right">
             <p className="text-2xl md:text-3xl font-semibold">No hidden fees, wasted time, or marketing gimmicks.</p>
           </div>
         </div>

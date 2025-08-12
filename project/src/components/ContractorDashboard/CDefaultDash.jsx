@@ -28,7 +28,7 @@ export default function CDefaultDash({ onSettings, onApplyJob }) {
       distance: "2.5 miles away",
       description: "Complete kitchen remodel including cabinets, countertops, and appliances",
       urgent: true,
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://westoba.com/wp-content/uploads/2021/05/daniela-gisin-krumsick-UqNEbyRQ660-unsplash-scaled.jpg?height=200&width=300",
       applied: true,
     },
     {
@@ -41,7 +41,7 @@ export default function CDefaultDash({ onSettings, onApplyJob }) {
       description: "Repair and addressing leaks in the kitchen sink",
       urgent: false,
       timeframe: "This week",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://findthehomepros.com/wp-content/uploads/2023/02/marian-florinel-condruz-C-oYJoIfgCs-unsplash-1080x675.jpg?height=200&width=300",
       applied: true,
     },
     {
@@ -53,7 +53,7 @@ export default function CDefaultDash({ onSettings, onApplyJob }) {
       distance: "2.5 miles away",
       description: "Restore drywall and flooring in living room after water damage from pipe leak",
       urgent: true,
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://www.candsins.com/wp-content/uploads/how-to-get-insurance-to-pay-for-water-damage.jpg?height=200&width=300",
       applied: false,
     },
   ]
