@@ -1,296 +1,375 @@
-import { useState, useEffect } from 'react'
+"use client"
 
-function App() {
-  const [data, setData] = useState([])
-  const [newItem, setNewItem] = useState({ id: '', name: '', description: '', price: '', message: '' })
-  const [editingItem, setEditingItem] = useState(null)
-  // Use RAILWAY_API_URL environment variable for Railway deployment  
-  const API_URL = import.meta.env.VITE_RAILWAY_API_URL || 'http://localhost:3001'
+import { useState } from 'react'
 
-  // CRUD Operations - HTTP Requests:
-  
-  // READ: Fetch all data items (HTTP GET)
-  // GET /api/data - Retrieves all items from the database
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/data`)
-      const result = await response.json()
-      setData(result)
-    } catch (error) {
-      console.error('Error fetching data:', error)
+import UniversalLanding from './components/LandingPage/UniversalLanding';
+
+import UniversalLogin from './components/Login/UniversalLogin';
+
+import IdentifyUser from './components/IdentifyUserType/IdentifyUser';
+
+import HsignUpOne from './components/HomeClientSignUp/FlowOne';
+import HsignUpTwo from './components/HomeClientSignUp/FlowTwo';
+
+import CsignUpOne from './components/ContractorSignUp/FlowOne';
+import CsignUpTwo from './components/ContractorSignUp/FlowTwo';
+import CsignUpThree from './components/ContractorSignUp/FlowThree';
+import CsignUpFour from './components/ContractorSignUp/FlowFour';
+
+import HDefaultDash from './components/HomeClientDashboard/HDefaultDash';
+import HApplicationsPage from './components/HomeClientDashboard/HApplicationsPage';
+import HaccountSettings from './components/HomeClientDashboard/HaccountSettings';
+
+import CDefaultDash from './components/ContractorDashboard/CDefaultDash';
+import CaccountSettings from './components/ContractorDashboard/CaccountSettings';
+
+import JobFlowOne from './components/JobPost/JobPostFlowOne';
+import JobFlowTwo from './components/JobPost/JobPostFlowTwo';
+import JobFlowThree from './components/JobPost/JobPostFlowThree';
+import JobFlowFour from './components/JobPost/JobPostFlowFour';
+import JobFlowFive from './components/JobPost/JobPostFlowFive';
+import JobFlowSix from './components/JobPost/JobPostFlowSix';
+import JobFlowSeven from './components/JobPost/JobPostFlowSeven';
+import JobFlowEight from './components/JobPost/JobPostFlowEight';
+
+/* {condition ? <div>True</div> : <div>False</div>} */
+
+export default function App() {
+  const [currentView, setCurrentView] = useState("landing")
+  const [userType, setUserType] = useState(null) // 'client' or 'contractor'
+  const [onboardingStep, setOnboardingStep] = useState(0)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userData, setUserData] = useState({})
+  const [jobPostingStep, setJobPostingStep] = useState(0)
+  const [jobPostingData, setJobPostingData] = useState({})
+  const [postedJobs, setPostedJobs] = useState([])
+
+  const navigateTo = (view, type = null) => {
+    setCurrentView(view)
+    if (type) setUserType(type)
+  }
+
+  const handleLogin = (credentials) => {
+    // TODO: Integrate with backend authentication
+    console.log("Login attempt:", credentials)
+    setIsLoggedIn(true)
+    // For demo, redirect to account type selection
+    setCurrentView("account-type")
+  }
+
+  const handleSignUp = (data, type) => {
+    // TODO: Integrate with backend user creation
+    console.log("Sign up data:", data, "Type:", type)
+    setUserData(data)
+    setIsLoggedIn(true)
+    // Navigate to appropriate dashboard
+    if (type === "client") {
+      setCurrentView("client-dashboard")
+    } else {
+      setCurrentView("contractor-dashboard")
     }
   }
 
-  // CREATE: Add new data item (HTTP POST)
-  // POST /api/data - Creates a new item in the database
-  const createItem = async (event) => {
-    event.preventDefault()
-    
-    // Validate all fields are filled
-    if (!newItem.id.trim() || !newItem.name.trim() || !newItem.description.trim() || !newItem.price.trim() || !newItem.message.trim()) {
-      alert('Please fill in all fields before saving.')
-      return
-    }
-    
-    console.log('API_URL:', API_URL)
-    console.log('Sending data:', { id: newItem.id, data: { name: newItem.name, description: newItem.description, price: newItem.price, message: newItem.message } })
-    
-    try {
-      const response = await fetch(`${API_URL}/api/data`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: newItem.id,
-          data: { name: newItem.name, description: newItem.description, price: newItem.price, message: newItem.message }
-        })
-      })
-      
-      console.log('Response status:', response.status)
-      console.log('Response ok:', response.ok)
-      
-      if (response.ok) {
-        const responseData = await response.json()
-        console.log('Success response:', responseData)
-        setNewItem({ id: '', name: '', description: '', price: '', message: '' })
-        fetchData()
-      } else {
-        const errorData = await response.text()
-        console.error('Error response:', errorData)
-        alert(`Error saving item: ${response.status} - ${errorData}`)
-      }
-    } catch (error) {
-      console.error('Network error creating item:', error)
-      alert(`Network error: ${error.message}`)
-    }
+  const handleOnboardingNext = (data) => {
+    setUserData((prev) => ({ ...prev, ...data }))
+    setOnboardingStep((prev) => prev + 1)
   }
 
-  // UPDATE: Modify existing data item (HTTP PUT)
-  // PUT /api/data/:id - Updates an existing item by ID in the database
-  const updateItem = async (event) => {
-    event.preventDefault()
-    
-    // Validate all fields are filled
-    if (!editingItem.name.trim() || !editingItem.description.trim() || !editingItem.price.trim() || !editingItem.message.trim()) {
-      alert('Please fill in all fields before saving.')
-      return
+  const handleOnboardingComplete = (data) => {
+    setUserData((prev) => ({ ...prev, ...data }))
+    // TODO: Save complete user profile to backend
+    console.log("Complete user data:", { ...userData, ...data })
+    if (userType === "client") {
+      setCurrentView("client-dashboard")
+    } else {
+      setCurrentView("contractor-dashboard")
     }
-    
-    try {
-      const response = await fetch(`${API_URL}/api/data/${editingItem.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          data: { name: editingItem.name, description: editingItem.description, price: editingItem.price, message: editingItem.message }
-        })
-      })
-      if (response.ok) {
-        setEditingItem(null)
-        fetchData()
-      }
-    } catch (error) {
-      console.error('Error updating item:', error)
-    }
+    setOnboardingStep(0)
   }
 
-  // DELETE: Remove data item (HTTP DELETE)
-  // DELETE /api/data/:id - Deletes an item by ID from the database
-  const deleteItem = async (id) => {
-    try {
-      const response = await fetch(`${API_URL}/api/data/${id}`, {
-        method: 'DELETE'
-      })
-      if (response.ok) {
-        fetchData()
-      }
-    } catch (error) {
-      console.error('Error deleting item:', error)
-    }
+  const handleJobPostingNext = (data) => {
+    setJobPostingData((prev) => ({ ...prev, ...data }))
+    setJobPostingStep((prev) => prev + 1)
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  const handleJobPostingPrevious = () => {
+    setJobPostingStep((prev) => Math.max(0, prev - 1))
+  }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6">
-      <div className="max-w-6xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8">Data Management System</h1>
-      
-      {/* Create Item Form with Message */}
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-xl mb-8 shadow-lg border border-blue-200">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-          Add New Item
-        </h2>
-        
-        <form onSubmit={createItem} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <input
-              type="text"
-              placeholder="Item ID"
-              value={newItem.id}
-              onChange={(event) => setNewItem({...newItem, id: event.target.value})}
-              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Item Name"
-              value={newItem.name}
-              onChange={(event) => setNewItem({...newItem, name: event.target.value})}
-              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Description"
-              value={newItem.description}
-              onChange={(event) => setNewItem({...newItem, description: event.target.value})}
-              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-              required
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              value={newItem.price}
-              onChange={(event) => setNewItem({...newItem, price: event.target.value})}
-              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-              required
-            />
-          </div>
-          
-          {/* Message Text Box */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-            <textarea
-              value={newItem.message}
-              onChange={(event) => setNewItem({...newItem, message: event.target.value})}
-              placeholder="Enter your message here..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-vertical focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-              rows="3"
-              required
-            />
-          </div>
-          
-          <div className="flex justify-end mt-6">
-            <button type="submit" className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-              Add Item
-            </button>
-          </div>
-        </form>
-      </div>
+  const handleJobPostingComplete = (data) => {
+    const completeJobData = { ...jobPostingData, ...data }
+    // TODO: Submit job to backend
+    console.log("Complete job posting data:", completeJobData)
 
-      {/* Edit Item Form */}
-      {editingItem && (
-        <div className="bg-gradient-to-br from-amber-50 to-orange-100 p-6 rounded-xl mb-8 shadow-lg border border-amber-200">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-            Edit Item
-          </h2>
-          <form onSubmit={updateItem} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <input
-                type="text"
-                placeholder="Item Name"
-                value={editingItem.name}
-                onChange={(event) => setEditingItem({...editingItem, name: event.target.value})}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                required
-              />
-              <input
-                type="text"
-                placeholder="Description"
-                value={editingItem.description}
-                onChange={(event) => setEditingItem({...editingItem, description: event.target.value})}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                required
-              />
-              <input
-                type="number"
-                placeholder="Price"
-                value={editingItem.price}
-                onChange={(event) => setEditingItem({...editingItem, price: event.target.value})}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                required
-              />
-            </div>
-            
-            {/* Message Text Box for Edit */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-              <textarea
-                value={editingItem.message}
-                onChange={(event) => setEditingItem({...editingItem, message: event.target.value})}
-                placeholder="Enter your message here..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-vertical focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                rows="3"
-                required
-              />
-            </div>
-            <div className="flex gap-4 mt-6">
-              <button type="submit" className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-                Update Item
-              </button>
-              <button 
-                type="button" 
-                onClick={() => setEditingItem(null)}
-                className="px-8 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white font-semibold rounded-lg hover:from-gray-600 hover:to-gray-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+    // Create a new job entry for the dashboard
+    const newJob = {
+      id: Date.now(),
+      title: completeJobData.selectedServices?.join(", ") || "New Job",
+      description: completeJobData.projectDescription || "No description",
+      price: completeJobData.price || "0",
+      location: completeJobData.location || "Location not specified",
+      propertyType: completeJobData.selectedPropertyType || "Not specified",
+      preferredDateTime: completeJobData.preferredDateTime || "Flexible",
+      status: "Open for applicants",
+      postedDate: new Date().toLocaleDateString(),
+    }
 
-      {/* Data List */}
-      <div className="bg-white rounded-xl shadow-xl border border-gray-200">
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 border-b border-gray-200 rounded-t-xl">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            Your Data Collection
-          </h2>
-        </div>
-        {data.length === 0 ? (
-          <div className="p-12 text-center">
-            <p className="text-xl text-gray-500 mb-2">No data yet!</p>
-            <p className="text-gray-400">Add some items to get started</p>
-          </div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {data.map(item => (
-              <div key={item.id} className="p-6 hover:bg-gray-50 transition-colors duration-200">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="mb-2">
-                      <h3 className="text-xl font-semibold text-gray-800">{item.data.name}</h3>
-                    </div>
-                    <p className="text-gray-600 mb-2">Description: {item.data.description}</p>
-                    <p className="text-gray-600 mb-2">Message: {item.data.message}</p>
-                    <div className="">
-                      <p className="text-xl font-bold text-green-600">${item.data.price}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3 ml-4">
-                    <button
-                      onClick={() => setEditingItem({id: item.id, ...item.data})}
-                      className="px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold rounded-lg hover:from-amber-600 hover:to-yellow-600 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => deleteItem(item.id)}
-                      className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-lg hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      </div>
-    </div>
-  )
+    setPostedJobs((prev) => [...prev, newJob])
+    setCurrentView("job-success")
+  }
+
+  const handleEditJob = () => {
+    // Reset job posting to first step to allow editing
+    setJobPostingStep(0)
+    setCurrentView("job-posting")
+  }
+
+  const handleReturnHome = () => {
+    // Clear job posting data and return to dashboard
+    setJobPostingData({})
+    setJobPostingStep(0)
+    setCurrentView("client-dashboard")
+  }
+
+  const updateJobPostingData = (data) => {
+    setJobPostingData((prev) => ({ ...prev, ...data }))
+  }
+
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case "landing":
+        return <UniversalLanding onLogin={() => navigateTo("login")} onSignUp={() => navigateTo("account-type")} />
+
+      case "login":
+        return (
+          <UniversalLogin
+            onLogin={handleLogin}
+            onSignUp={() => navigateTo("account-type")}
+            onBack={() => navigateTo("landing")}
+          />
+        )
+
+      case "account-type":
+        return (
+          <IdentifyUser
+            onSelectClient={() => {
+              setUserType("client")
+              navigateTo("client-signup")
+            }}
+            onSelectContractor={() => {
+              setUserType("contractor")
+              navigateTo("contractor-onboarding")
+            }}
+            onLogin={() => navigateTo("login")}
+          />
+        )
+
+      case "client-signup":
+        if (onboardingStep === 0) {
+          return (
+            <HsignUpOne
+              onNext={(data) => {
+                setUserData(data)
+                setOnboardingStep(1)
+              }}
+              onBack={() => navigateTo("account-type")}
+            />
+          )
+        } else {
+          return (
+            <HsignUpTwo
+              onNext={(data) => handleSignUp({ ...userData, ...data }, "client")}
+              onBack={() => setOnboardingStep(0)}
+            />
+          )
+        }
+
+      case "contractor-onboarding":
+        switch (onboardingStep) {
+          case 0:
+            return (
+              <CsignUpOne
+                onNext={(data) => {
+                  setUserData(data)
+                  setOnboardingStep(1)
+                }}
+                onBack={() => navigateTo("account-type")}
+              />
+            )
+          case 1:
+            return (
+              <CsignUpTwo
+                onNext={(data) => {
+                  setUserData((prev) => ({ ...prev, ...data }))
+                  setOnboardingStep(2)
+                }}
+                onBack={() => setOnboardingStep(0)}
+              />
+            )
+          case 2:
+            return (
+              <CsignUpThree
+                onNext={(data) => {
+                  setUserData((prev) => ({ ...prev, ...data }))
+                  setOnboardingStep(3)
+                }}
+                onBack={() => setOnboardingStep(1)}
+              />
+            )
+          case 3:
+            return <CsignUpFour onNext={handleOnboardingComplete} onBack={() => setOnboardingStep(2)} />
+          default:
+            return <CsignUpOne onNext={handleOnboardingNext} onBack={() => navigateTo("account-type")} />
+        }
+
+      case "job-posting":
+        switch (jobPostingStep) {
+          case 0:
+            return (
+              <JobFlowOne
+                onNext={handleJobPostingNext}
+                onPrevious={() => navigateTo("client-dashboard")}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          case 1:
+            return (
+              <JobFlowTwo
+                onNext={handleJobPostingNext}
+                onPrevious={handleJobPostingPrevious}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          case 2:
+            return (
+              <JobFlowThree
+                onNext={handleJobPostingNext}
+                onPrevious={handleJobPostingPrevious}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          case 3:
+            return (
+              <JobFlowFour
+                onNext={handleJobPostingNext}
+                onPrevious={handleJobPostingPrevious}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          case 4:
+            return (
+              <JobFlowFive
+                onNext={handleJobPostingNext}
+                onPrevious={handleJobPostingPrevious}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          case 5:
+            return (
+              <JobFlowSix
+                onNext={handleJobPostingNext}
+                onPrevious={handleJobPostingPrevious}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          case 6:
+            return (
+              <JobFlowSeven
+                onNext={handleJobPostingComplete}
+                onPrevious={handleJobPostingPrevious}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+          default:
+            return (
+              <JobFlowOne
+                onNext={handleJobPostingNext}
+                onPrevious={() => navigateTo("client-dashboard")}
+                formData={jobPostingData}
+                updateFormData={updateJobPostingData}
+              />
+            )
+        }
+
+      case "job-success":
+        return <JobFlowEight onEditJob={handleEditJob} onReturnHome={handleReturnHome} formData={jobPostingData} />
+
+      case "client-dashboard":
+        return (
+          <HDefaultDash
+            onRequestJob={() => navigateTo("job-posting")} // Navigate to job posting flow
+            onViewApplicants={() => navigateTo("job-applicants")} // Navigate to job applicants page
+            onSettings={() => navigateTo("client-settings")}
+            postedJobs={postedJobs} // Pass posted jobs to dashboard
+          />
+        )
+
+      case "client-settings":
+        return (
+          <HaccountSettings
+            onBack={() => navigateTo("client-dashboard")}
+            onSignOut={() => {
+              setIsLoggedIn(false)
+              setUserData({})
+              setUserType(null)
+              navigateTo("landing")
+            }}
+          />
+        )
+
+      case "contractor-dashboard":
+        return (
+          <CDefaultDash
+            onSettings={() => navigateTo("contractor-settings")}
+            onApplyJob={(jobId) => {
+              // TODO: Submit job application to backend
+              console.log("Applied to job:", jobId)
+            }}
+          />
+        )
+
+      case "contractor-settings":
+        return (
+          <CaccountSettings
+            onBack={() => navigateTo("contractor-dashboard")}
+            onSignOut={() => {
+              setIsLoggedIn(false)
+              setUserData({})
+              setUserType(null)
+              navigateTo("landing")
+            }}
+          />
+        )
+
+      case "job-applicants":
+        return (
+          <HApplicationsPage
+            onBack={() => navigateTo("client-dashboard")} // Navigate back to consolidated dashboard
+            onAcceptContractor={(contractorId) => {
+              // TODO: Accept contractor and update job status in backend
+              console.log("Accepted contractor:", contractorId)
+              setPostedJobs((prev) =>
+                prev.map((job) =>
+                  job.id === Number.parseInt(contractorId)
+                    ? { ...job, contractor: "Sean Jones", scheduledDate: "August 14 at 5:30pm", status: "In Progress" }
+                    : job,
+                ),
+              )
+              navigateTo("client-dashboard")
+            }}
+          />
+        )
+
+      default:
+        return <UniversalLanding onLogin={() => navigateTo("login")} onSignUp={() => navigateTo("account-type")} />
+    }
+  }
+  return <div>{renderCurrentView()}</div>
 }
-
-export default App
